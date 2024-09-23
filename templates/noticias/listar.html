@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}NOTICIAS{% endblock titulo %}
+
+
+{% block contenido %}
+	<div class="submenu">
+
+		<a href="{% url 'noticias:listar' %}">TODAS</a>
+		{% for cat in categorias %}
+			<a href="?id={{cat.pk}}">{{cat.nombre}}</a>
+		{% endfor %}
+
+	</div>
+
+	<h1>ACA VOY A LISTAR LAS NOTICIAS</h1>
+
+	{% for noti in noticias %}
+		<img src="{{noti.imagen.url}}" width="100" height="100">
+		
+		<p><a href="{% url 'noticias:detalle' noti.pk %}">TITULO: {{noti.titulo}}</a></p>
+		
+		<p>FECHA: {{noti.fecha}}</p>
+		<p>CATEGORIA: {{noti.categoria_noticia}}</p>
+		<p>CUERPO: {{noti.cuerpo}}</p>
+		<br><br>
+	{% endfor %}
+{% endblock contenido %}
+
