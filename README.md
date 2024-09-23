@@ -5,7 +5,7 @@
 1. Crear el repositorio
 2. Agregar companeros (1 por grupo)
 3. Copiar los archivos de este repo al nuevo
-  - git clone https://github.com/xlmriosx/blog-base.git
+  - git clone https://github.com/informatorio-com/blog-base.git
 4. Subir los cambios a su repositorio del grupo
   - git add .
   - git commit -m "initial commit project"
