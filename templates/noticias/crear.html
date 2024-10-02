@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+    <h2>Crear Nueva Noticia</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p}} <!-- muestra el formulario -->
+
+        <button type="submit">Publicar Noticia</button>
+    </form>
+
+    <a href="{% url 'noticias:listtar' %}">Cancelar</a>
+{% endblock %}

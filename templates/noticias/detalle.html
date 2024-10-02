@@ -20,6 +20,10 @@
 			<input type="text" name="id_noticia" value="{{noticia.pk}}" hidden=""> 
 			<input type="submit" value="GUARDAR">
 		</form>
+		{% if request.user == noticia.autor or request.user.is_staff %}
+			<a href="{% url 'noticias:editar' noticia.pk %}">Editar</a>
+			<a href="{% url 'noticias:eliminar' noticia.pk %}">Eliminar</a>
+		{% endif %}
 		<br><br><br>
 		<h3>COMENTARIOS</h3>
 		{% for com in comentarios %}
