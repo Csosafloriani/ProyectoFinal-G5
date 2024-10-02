@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import login_required
 
-from .models import Noticia, Categoria, Comentario
+from .models import Noticia, Categoria
+from apps.comentarios.models import Comentario
 
 from django.urls import reverse_lazy
 
