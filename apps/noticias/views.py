@@ -89,6 +89,7 @@ def Editar_Noticia(request, pk):
 	
 	return render(request, 'noticias/editar.html', {'form': form, 'noticia': noticia})
 
+@login_required
 @user_passes_test(lambda u: u.is_staff)
 def Eliminar_Noticia(request, pk):
 	noticia = get_object_or_404(Noticia, pk=pk)

@@ -5,7 +5,8 @@
 
 
 {% block contenido %}
-	<h1>ACA VOY A DETALLAR UNA NOTICIA</h1>
+	<h1>DETALLES DE LA NOTICIA</h1>
+		<!-- NOTICIA -->
 		<img src="{{noticia.imagen.url}}" width="500" height="500">
 		
 		<p>TITULO: {{noticia.titulo}}</p>
@@ -13,18 +14,31 @@
 		<p>FECHA: {{noticia.fecha}}</p>
 		<p>CATEGORIA: {{noticia.categoria_noticia}}</p>
 		<p>CUERPO: {{noticia.cuerpo}}</p>
+		<p>PUBLICADO POR: {{noticia.autor.username}}</p>
 		<br><br>
-		<br>
-		<form method="POST" action="{% url 'noticias:comentar' %}">{% csrf_token %}
-			<textarea name="comentario" maxlength="1500"> </textarea>
-			<input type="text" name="id_noticia" value="{{noticia.pk}}" hidden=""> 
-			<input type="submit" value="GUARDAR">
-		</form>
+		<!-- MOSTRAR LOS BOTONES DE EDITAR/ELIMINAR SOLO SI ES EL AUTOR O ADMIN-->
 		{% if request.user == noticia.autor or request.user.is_staff %}
 			<a href="{% url 'noticias:editar' noticia.pk %}">Editar</a>
 			<a href="{% url 'noticias:eliminar' noticia.pk %}">Eliminar</a>
 		{% endif %}
+		<br>
+
+		<!-- AGREGAR COMENTARIO -->
+		<!-- SOLO SI ESTÁ REGISTRADO-->
+		{% if request.user.is_authenticated %}
+			<form method="POST" action="{% url 'noticias:comentar' %}">
+				{% csrf_token %}
+				<textarea name="comentario" placeholder="Escribe tu comentario" maxlength="1500"></textarea>
+				<input type="text" name="id_noticia" value="{{noticia.pk}}" hidden=""> 
+				<input type="submit" value="GUARDAR">
+			</form>
+		
+		{% else %}
+			<p>Inicia sesión para comentar</p>
+		{% endif %}
+
 		<br><br><br>
+		<!-- MOSTAR COMEWNTARIOS -->
 		<h3>COMENTARIOS</h3>
 		{% for com in comentarios %}
 		{% if user == com.usuario %}
