@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}LOGIN {% endblock %}
 
 {% block contenido %}
-			<form method="POST">{%csrf_token%}
-				{{form.errors}}
-				<input type="text" name="username" placeholder="USUARIO">
+{% if form.errors %}
+<p>El nombre del usuario o la contraseña están incorrectos</p>
+{%else%}
+<p>Por favor,  complete el formulario para iniciar sesión </p>
+{% endif %}
+			<form  action="{% url 'login' %}" method="POST"> {% csrf_token %}
+				<!--{{form.errors}}
+				<h2>Login</h2>
+				<input type="text" name="username" placeholder="USUARIO"> <br><br>
 				<input type="password" name="password" placeholder="PASSWORD">
 
-				<input type="submit" name="" value="ENVIAR">
-			</form>
+				<input type="submit" name="" value="ENVIAR">-->
+				{{form.as_p}}
+				<input type="hidden" name="next" , value= "{{next}}">
+				<button type="submit">Iniciar sesión</button>
+
+ 			</form>
 {% endblock %}

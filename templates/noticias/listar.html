@@ -1,19 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block titulo %}NOTICIAS{% endblock titulo %}
+{% block title %}LISTA DE NOTICIAS{% endblock title %}
 
 
 {% block contenido %}
+
+<form action="" method="post">{% csrf_token %}  
+
 	<div class="submenu">
 
-		<a href="{% url 'noticias:listar' %}">TODAS</a>
+		<a
+	href="{% url 'noticias:listar' %}"
+	class="badge bg-primary">TODAS</a>
 		{% for cat in categorias %}
 			<a href="?id={{cat.pk}}">{{cat.nombre}}</a>
 		{% endfor %}
 
 	</div>
-
+</form>
 	<h1>ACA VOY A LISTAR LAS NOTICIAS</h1>
 
 	{% for noti in noticias %}

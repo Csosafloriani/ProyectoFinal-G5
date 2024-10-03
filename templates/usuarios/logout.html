@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}LOGOUT{% endblock %}
+
+{% block content %}
+<div>
+<h1> Has cerrado sesión </h1>
+<p>Puedes iniciar sesión nuevamente:  
+<a href="{% url'login' %}"> Aquí </a></p>
+
+</div>
+
+{% endblock %}
