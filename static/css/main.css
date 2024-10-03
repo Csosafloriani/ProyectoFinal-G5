@@ -20,12 +20,13 @@
 
 .bloque{
 	
-	background-image:  URL('images/Diseno-sin-titulo-2023-05-14T222414.502.png');
+	background-image: auto, URL('images/Diseno-sin-titulo-2023-05-14T222414.502.png');
+    background-size: cover;
+	background-color: cadetblue;
 	
 	font-family: "Poppins", sans-serif;
 	color:orange;
-	height:500px;
-	width:1300px;
+	
 }
     h4{
 	background-color:blueviolet;
@@ -36,4 +37,8 @@
 
 .submenu{
 	font-size: 18px	;
+}
+
+.footer{
+	background-color: aqua;
 }
