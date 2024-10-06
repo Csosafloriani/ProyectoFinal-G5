@@ -6,6 +6,8 @@ from .models import Noticia, Categoria, Comentario
 
 from django.urls import reverse_lazy
 
+from .forms import NoticiaForm
+
 @login_required
 def Listar_Noticias(request):
 	contexto = {}
@@ -62,3 +64,19 @@ CLASE.objects.filter(campos = ____)
 CLASE.objects.all() ---> SELECT * FROM CLASE
 
 '''
+
+
+@login_required
+def Noticia_form(request):
+	context= { 'form': NoticiaForm() }
+	if request.method == "POST":
+		form=NoticiaForm(data=request.POST, files=request.FILES)
+		if form.is_valid():
+			form.save()
+			context["mensaje"]= "se guardo el form"
+			return redirect("noticias:cargar_noticia") # noticias= la url que se define en la urls.py de la apps
+	else: 
+		context["mensaje"]= "CARGAR"
+		#context['form']= form
+		
+	return render(request,"noticias/carga_noticia.html", context ) # y crear un html en template de la apps de personaje

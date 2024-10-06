@@ -6,5 +6,12 @@
 
 {% block contenido %}
 	<h2>HOLA SOY EL HOME CON UN CAMBIO</h2>
+
+	{% if request.user.is_authenticated %} <!--agregue request-->
+	<h4>
+		{{user.username | upper }}	, Bienvenido
+	</h4>
+	{% endif %}
+	
 {% endblock contenido %}
 

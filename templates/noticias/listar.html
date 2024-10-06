@@ -5,6 +5,11 @@
 
 
 {% block contenido %}
+
+	<div class="cargar_noticia">
+		<a href="{% url 'noticias:cargar_noticia' %}">Caragar Noticias</a>
+	</div>
+
 	<div class="submenu">
 
 		<a href="{% url 'noticias:listar' %}">TODAS</a>
