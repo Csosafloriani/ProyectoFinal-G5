@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
-
+from django.contrib.auth.decorators import login_required
+from .forms import AsignarRolForm
 from django.contrib.auth import authenticate, login, logout
 from .forms import RegistroForm 
 
@@ -49,3 +50,18 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+@login_required
+def asignar_rol(request, pk):
+    usuario=usuario.object.get(pk=pk)
+    form=AsignarRolForm()
+
+    if request.method=='POST':
+        form=AsignarRolForm(request.POST)
+        if form.is_valid():
+            rol=form.cleaned_data("rol")
+            
+            UsuarioRol.objects.create(usuario=usuario, 
+            rol=rol)
+            return redirect('usuarios')
+        return render(request, 'asignar_rol.html', {'form': form})

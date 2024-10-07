@@ -1,8 +1,18 @@
+
+#from django.shortcuts import get_object_or_404
+
+#from django. http import HttpResponse
+#from django. template import loader 
+
+
 from django.shortcuts import render, redirect
+from django.views.generic import CreateView
 
 from django.contrib.auth.decorators import login_required
 
 from .models import Noticia, Categoria, Comentario
+
+from .forms import NoticiaForm
 
 from django.urls import reverse_lazy
 
@@ -59,6 +69,54 @@ ORM
 
 CLASE.objects.get(pk = ____)
 CLASE.objects.filter(campos = ____)
-CLASE.objects.all() ---> SELECT * FROM CLASE
+CLASE.objects.all() ---> SELECT * FROM CLASE '''
 
-'''
+"""def noticia (request):
+	noticias_list=Noticia.object.all()
+	template=loader.get_template ("listar.html")
+	context={"noticias_list":noticias_list}
+	return HttpResponse (template.render (context, request))"""
+
+
+@login_required 
+def agregar_noticia(request):
+	if request.method=='POST':
+		form=NoticiaForm(request.POST)
+		if form.is_valid():
+			noticia= form.save(commit=False)
+			noticia.autor=request.user
+			noticia.save()
+			return redirect ('noticias')
+		else:
+			form=NoticiaForm()
+		return render(request, 'noticias/agregar_noticia.html',
+		{'noticia':noticia})
+		
+
+@login_required 
+def editar_noticia(request, pk):
+	noticia=Noticia.objects.get(pk=pk)
+	if request.method=='POST':
+		form=NoticiaForm(request.POST, instance=noticia)
+		if form.is_valid():
+			form.save()
+			return redirect ('noticias')
+		else:
+			form=NoticiaForm(instance=noticia)
+		return render(request, 'noticias/editar_noticia.html',
+		{'noticia':noticia})
+
+@login_required 
+def eliminar_noticia(request, pk):
+	noticia=Noticia.objects.get(pk=pk)
+	if request.method=='POST':
+		noticia.delete()
+		return redirect('noticias')
+	return render(request, 'noticias/eliminar_noticia.html',
+			   {'noticia':noticia})
+    
+
+
+
+
+

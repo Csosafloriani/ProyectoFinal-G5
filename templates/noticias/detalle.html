@@ -3,11 +3,14 @@
 
 {% block title %}NOTICIAS{% endblock title %}
 
-
+<main>
+	<section>
+		<article  class="articulos" >
 {% block contenido %}
 	<h1> NOTICIA </h1>
 	
-
+	{% for noticia in noticias %}
+	
 
 		<img src="{{noticia.imagen.url}}" width="500" height="500">
 		
@@ -16,6 +19,17 @@
 		<p>FECHA: {{noticia.fecha}}</p>
 		<p>CATEGORIA: {{noticia.categoria_noticia}}</p>
 		<p>CUERPO: {{noticia.cuerpo}}</p>
+		
+		{% if user == noticia.usuario %}
+	<ul><li>
+		<a href="{% url 'noticias:agregar' %}">agregar_noticia</a>
+		<a href="{% url 'noticias:eliminar' %}">eliminar_noticia</a>
+		<a href="{% url 'noticias:editar' %}">editar_noticia</a>
+	</li></ul>
+		{% else %}
+		<a href="{% url 'noticias:listar' %}">VOLVER</a>
+	{% endif %}
+	{% endfor %}
 		<br><br>
 		<br>
 		<form method="POST" action="{% url 'noticias:comentar' %}">{% csrf_token %}
@@ -34,5 +48,10 @@
 		<p>{{com.texto}}</p>
 		{% endfor %}
 		<a href="{% url 'noticias:listar' %}">VOLVER</a>
-{% endblock contenido %}
 
+
+{% endblock %}
+
+	</article>
+	</section>
+	</main>

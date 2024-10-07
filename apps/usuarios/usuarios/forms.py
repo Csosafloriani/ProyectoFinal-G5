@@ -2,6 +2,7 @@ from django import forms
 
 from django.contrib.auth.forms import UserCreationForm
 from .models import Usuario
+from .models import Rol
 
 class RegistroForm(UserCreationForm):
     email = forms.EmailField(label='Correo', required=True)
@@ -22,3 +23,6 @@ class RegistroForm(UserCreationForm):
             'password1',
             'password2'
         ]
+
+class AsignarRolForm(forms.Form):
+    rol=forms.ModelChoiceField(queryset=Rol.object.all())

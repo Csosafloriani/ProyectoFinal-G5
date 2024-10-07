@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}NOTICIAS{% endblock title %}
+
+
+{% block contenido %}
+    <h2>Eliminar un artículo: {{noticia.titulo}} </h2>
+ 
+
+    <form method="post" action="{% url'noticias:eliminar_noticia' noticia.pk %}">
+        {% csrf_token %}
+     <button type="submit">eliminar</button>
+
+    <a href="{% url 'noticias:listar' %}">VOLVER</a>
+</form>
+
+    {% endblock %}

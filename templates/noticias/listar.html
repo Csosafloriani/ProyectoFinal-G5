@@ -2,7 +2,9 @@
 {% load static %}
 
 {% block title %}LISTA DE NOTICIAS{% endblock title %}
-
+<main>
+	<section>
+		<article >
 
 {% block contenido %}
 
@@ -12,7 +14,7 @@
 
 		<a
 	href="{% url 'noticias:listar' %}"
-	class="badge bg-primary">TODAS</a>
+	class="badge bg-primary">ARTÍCULOS</a>
 		{% for cat in categorias %}
 			<a href="?id={{cat.pk}}">{{cat.nombre}}</a>
 		{% endfor %}
@@ -21,15 +23,18 @@
 </form>
 	<h1>NOTICIAS</h1>
 
-	{% for noti in noticias %}
-		<img src="{{noti.imagen.url}}" width="100" height="100">
+	{% for noticia in noticias %}
+		<img src="{{noticia.imagen.url}}"  width="100" height="100"/>
 		
-		<p><a href="{% url 'noticias:detalle' noti.pk %}">TITULO: {{noti.titulo}}</a></p>
+		<p><a href="{% url 'noticias:detalle' noticia.pk %}">TITULO: {{noticia.titulo}}</a></p>
+
+		<p>FECHA: {{noticia.fecha}}</p>
+		<p>CATEGORIA: {{noticia.categoria_noticia}}</p>
+		<p>CUERPO: {{noticia.cuerpo}}</p>
 		
-		<p>FECHA: {{noti.fecha}}</p>
-		<p>CATEGORIA: {{noti.categoria_noticia}}</p>
-		<p>CUERPO: {{noti.cuerpo}}</p>
 		<br><br>
 	{% endfor %}
 {% endblock contenido %}
-
+</article>
+</section>
+</main>

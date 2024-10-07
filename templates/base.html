@@ -15,13 +15,18 @@
 		<img src="{% static 'img/logo.png' %}" width="50px" height="50px">
 		<a href="{% url 'home' %}"> INICIO </a>
 		<a href="{% url 'nosotros' %}"> QUIENES SOMOS </a>
-		<a href="{% url 'noticias:listar' %}"> NOTICIAS </a>
+		<a href="{% url 'noticias:listar' %}">NOTICIAS </a>
+		<a href="{% url 'login' %}">ABRIR SESIÓN</a>
+		
+		<a href="{% url 'usuarios:registro' %}">REGISTRO</a>
 		
 		{% if user.is_authenticated %}
-			<strong>Hola {{ user.username }}</strong>
-			<a href="{% url 'logout' %}">CERRAR SESIÓN</a>
+
+			<a href="{% url 'login' %}">CERRAR SESIÓN</a>
+			
 		{% else %}
 			<a href="{% url 'login' %}">ABRIR SESIÓN</a>
+			<strong>¡Bienvenido!:{{request.user.username }}</strong>
 			<a href="{% url 'usuarios:registro' %}">REGISTRO</a>
 		{% endif %} 
 	</div>
@@ -32,24 +37,36 @@
 </header>
 <main>
 	<section>
-		<article>
+		<article  class="articulos" >
+			
 	<div class="bloque">
 	{% block contenido %}
 	
 	{% endblock contenido %}
 	</div>
 </article>
-<aside>
- <h1>Enlaces relacionados:</h1>
 
-</aside>
+ <aside class="recursos__adicionales">
+	<h2 class="recursos__title">Recursos adicionales</h2>
+	<ul class="recursos__lista">
+	  <li><a href="https://www.unesco.org/es/articles/la-inteligencia-artificial-entre-la-tecnologia-la-agencia-y-la-historia/"> La inteligencia artificial: entre la tecnología,la agencia y la historia </a></li>
+	  <li><a href="https://www.educaciontrespuntocero.com/recursos/recursos-matematicas-secundaria/">Educación 3.0</a></li>
+	  <li><a href="https://www.xataka.com/basics/chatgpt-que-como-usarlo-que-puedes-hacer-este-chat-inteligencia-artificial/"> Chat GPT: qué es, cómo usarlo y qué puedes hacer con este chat de inteligencia artificial GPT</a></li>
+	  <li><a href="https://www.tecnologia-ciencia-educacion.com/index.php/TCE/article/view/18987/"> Tecnología,Ciencia y Educación </a></li>
+	   
+	</ul>
+  </aside>
+
 
 </section>
 
 </main>
  <footer  class="footer">
-  <h1>correo electrónico: </h1>
-  
+   <h1>Contacto</h1>
+	<h3 >Correo electrónico</h3>
+        <p>nancydebarbora@yahoo.com.ar</p>
+        <!--<a href=""> <h5 class="volver">Volver al inicio</h5></a> -->
+ 
  </footer>
 </body>
 </html>

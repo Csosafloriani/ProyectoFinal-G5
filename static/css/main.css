@@ -3,10 +3,13 @@
 
 
 .contenedor{
+	display:flex;
+	flex-direction: column;
 	height:800px;
-	width:1300px;
-
-	text-align: justify;
+	width:1320px;;
+	text-align:start;
+	flex-wrap:wrap;
+	background-color: bisque;
 
 }
 
@@ -17,15 +20,47 @@
 	
 	
 }
+.articulos {
+    column-count: 1;
+    flex-wrap: wrap;
+	width:70%;
+	margin:1px left;
+	padding:5px;
+	border:0.5px solid#ddd;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+.recursos__title{
+	display:flex;
+	justify-content: center;
+	text-decoration: underline;
+	font-size: 25px;
+}
+.recursos__adicionales{
+	display:flex;
+	background-color:beige;
+    position:absolute;
+	top:90px;
+	right:20px;
+	padding:20px;
+	border: 1px solid#ddd;
+	width: 25%;
+	
+	float:right;
+	flex-wrap: wrap;
+    height:auto;
+	border: 0.5px solid#ddd;
+	
+}
 
 .bloque{
 	
-	background-image: auto, URL('images/Diseno-sin-titulo-2023-05-14T222414.502.png');
-    background-size: cover;
 	background-color: cadetblue;
-	
 	font-family: "Poppins", sans-serif;
 	color:orange;
+	flex-wrap: wrap;
+	flex-grow:70%;
+	border: 0.5px solid#ddd;
 	
 }
     h4{
@@ -36,9 +71,36 @@
 
 
 .submenu{
+	
 	font-size: 18px	;
 }
 
 .footer{
-	background-color: aqua;
+	background-color:#ddd;
+	
+	padding: 3px;
+	border: 1px solid#ddd;
+
+}
+.presentación_blog {
+	background-image:URL('images/Diseno-sin-titulo-2023-05-14T222414.502.png');
+    background-size:auto;
+
+}
+.nosotros{
+	background-image:URL('images/Diseno-sin-titulo-2023-05-14T222414.502.png');
+    background-size:auto;
+
+}
+.inicio{
+
+	flex-direction: column;
+	justify-content: center;
+	
+
+	
+
+
+	 
+
 }

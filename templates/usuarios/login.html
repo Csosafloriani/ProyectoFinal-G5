@@ -2,14 +2,17 @@
 {% load static %}
 
 {% block title %}LOGIN {% endblock %}
-
+<main>
+	<section >
+  
 {% block contenido %}
 {% if form.errors %}
 <p>El nombre del usuario o la contraseña están incorrectos</p>
 {%else%}
-<p>Por favor,  complete el formulario para iniciar sesión </p>
+<p class="inicio ">Por favor,  complete el formulario para iniciar sesión: </p> <br>
 {% endif %}
-			<form  action="{% url 'login' %}" method="POST"> {% csrf_token %}
+
+			<form class="inicio" action="{% url 'login' %}" method="POST"> {% csrf_token %}
 				<!--{{form.errors}}
 				<h2>Login</h2>
 				<input type="text" name="username" placeholder="USUARIO"> <br><br>
@@ -18,7 +21,8 @@
 				<input type="submit" name="" value="ENVIAR">-->
 				{{form.as_p}}
 				<input type="hidden" name="next" , value= "{{next}}">
-				<button type="submit">Iniciar sesión</button>
-
- 			</form>
-{% endblock %}
+				<button type="submit">Iniciar sesión</button> <br><br>
+	
+  {% endblock %}
+  </section>
+		</main>
