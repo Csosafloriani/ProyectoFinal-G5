@@ -83,7 +83,7 @@ def Editar_Noticia(request, pk):
 		form = NoticiaForm(request.POST, request.FILES, instance=noticia)
 		if form.is_valid():
 			form.save()
-			return redirect('noticcias:detalle', pk=noticia.pk)
+			return redirect('noticias:detalle', pk=noticia.pk)
 	else:
 		form =NoticiaForm(instance=noticia)
 	
