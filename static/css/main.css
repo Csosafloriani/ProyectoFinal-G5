@@ -15,10 +15,10 @@
     --presentacion-titulo-tamanio: 4rem;
     --presentacion-titulo-tamanio-grande: 3.4rem;
     --presentacion-descripcion-tamanio: 1.2rem;
-    --titulo-tamanio: 3rem;
-    --sub-titulo-tamanio: 2rem;
+    --titulo-tamanio: 3rem;  /*2a3*/
+    --sub-titulo-tamanio: 1.5rem;/*CAMBIE A 2 POR 1.5*/
     --texto-tamanio: 1.1rem;
-    --enlaces-tamanio: 1.2rem;
+    --enlaces-tamanio:  1rem;/*1.2rem tenia*/
     --texto-peso-grueso: 700;
     --texto-peso-regular: 400;
     --texto-peso-fino: 300; /*el peso de la funte si va a hacer fino o grueso*/
@@ -48,6 +48,47 @@
     
   } 
 
+
+  /* encabezado para inicio de pagina*/
+  .encabezado {
+    background-color: var(--fondo-primario);
+    position: absolute; /*posicion absoluta*/
+    width: 100%; /*ancho del 100%*/
+    left: 0; /*para posicionarse al comienzo de la pagina con el left y el top*/
+    top: 0;
+    /* background: linear-gradient(
+      180deg,
+      var(--fondo-primario) 0%,
+      var(--fondo-secundario) 100%
+    ); */
+    /* border-top: 1px solid var(--texto-secundario); */
+  }
+  .navegacion {
+    height: 80px; /*un alto*/
+    display: flex;
+    justify-content: flex-start; /*space-around*//*el contenido va a estar separado horizontal*/
+    align-items: center; /*eje vertical centrado*/
+    background-color: transparent; /*el fondo va a ser transparente*/
+  }
+  .navegacion__enlace {
+    text-decoration: none;
+  }
+  .navegacion__enlace1 {
+    text-decoration: none;
+    font-size: var(--titulo-tamanio);
+    left: 0; /*para posicionarse al comienzo de la pagina con el left y el top*/
+    top: 0;
+    justify-content: flex-start;
+    filter: drop-shadow(0px 0px 4px var(--color-primario)); 
+    font-size: var(--titulo-tamanio);
+
+  }
+  .navegacion__titulo {
+    justify-content: space-between;
+    font-size: var(--titulo-tamanio); /*el tamaño del titulo*/
+    color: var(--texto-terciario); /*le agregue yo, el color al titulo principal-MyluxPz*/
+    /*text-shadow: 2px 2px 2px var(--fondo-secundario); /*tres columnas*/
+  }
 
 .contenedor{
 	/* background-color: aqua; */
@@ -116,8 +157,8 @@
   .enlaces {
     width: 30%;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: space-around; /*un stilo ceparado*/
+    align-items: center; /*centra los enlaces*/
   }
   .enlaces_redes {
     width: 100%;
@@ -130,6 +171,15 @@
   }
   .enlaces__item {
     list-style: none; /*para eliminar los puntos que aparecen al lado de los enlaces-elementos del items*/
+  }
+  /*hice este para el inicio-enlace de home, noticia, login, logout, etc*/
+  .enlaces__enlace1 {
+    padding: 5px;
+    font-size: var(--enlaces-tamanio);
+    font-weight: var(--texto-peso-grueso);
+    color: var(--texto-terciario);
+    text-decoration: none;
+    transition: color 0.3s ease; 
   }
   .enlaces__enlace {
     font-size: var(--enlaces-tamanio);
@@ -155,6 +205,12 @@
   .enlaces__enlace:focus {
     color: var(--color-primario); /*color primario*/
   } 
+  .enlaces__enlace1:hover,
+  .enlaces__enlace1:focus {
+    color: var(--color-primario); /*color primario*/
+  } 
+
+
   /* botones */
   .boton {
     display: flex;

@@ -8,7 +8,7 @@ class  CategoriaAdmin(admin.ModelAdmin):
 
 class NoticiaAdmin(admin.ModelAdmin):
     list_display=['titulo', 'autor', 'cuerpo', 'imagen', 'categoria_noticia', 'fecha']
-    search_fields=['titulo', 'autor', 'imagen','categoria_post', 'fecha']
+    search_fields=['titulo',]
 
 admin.site.register(Categoria, CategoriaAdmin)#puse en el admin
 admin.site.register(Noticia, NoticiaAdmin)#puse en el admin

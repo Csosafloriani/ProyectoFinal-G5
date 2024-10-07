@@ -9,8 +9,47 @@
 
 
 <body class="contenedor">
+	<header class="encabezado"> <!--para agregar estilos más adelante-->
+		<nav class="navegacion"> <!--una etiqueta con la descripcion navegacion-->
+			<ul class="enlaces">
+				<a class="enlaces__icono" href="">
+					<img class="navegacion__enlace1" src="{% static 'img/logo1.ico' %}" width="50px" height="50px">
+				</a>
+				<a class="navegacion__enlace1" href="#presentacion"> <!--una etiqueta a con una class y una referencia href-->
+					<h1 class="enlaces__enlace1">INFORMATORIO</h1> <!--un titulo-->
+		  		</a>
+			</ul>
+		  	<ul class="enlaces"> <!--una lista de items-->
+			<li class="enlaces__item">
+			  <a class="enlaces__enlace1" href="{% url 'home' %}"> HOME </a> <!--el items presentacion-->
+			</li>
+			<li class="enlaces__item">
+			  <a class="enlaces__enlace1" href="{% url 'nosotros' %}"> NOSOTROS </a><!--el items sobre mi-->
+			</li>
+			<li class="enlaces__item">
+			  <a class="enlaces__enlace1" href="{% url 'noticias:listar' %}"> NOTICIAS </a> <!--items proyectos-->
+			</li>
+			{% if user.is_authenticated %}  
+			<strong class="enlaces__enlace1">{{ user.username }}</strong>
+			<li class="enlaces__item">
+				<a class="enlaces__enlace1" href="{% url 'logout' %}">LOGOUT</a>
+			</li >
+			{% else %}
+			<li class="enlaces__item">
+				<a class="enlaces__enlace1" href="{% url 'login' %}">LOGIN</a>
+			</li>
+			<li class="enlaces__item">
+				<a class="enlaces__enlace1" href="{% url 'usuarios:registro' %}">REGISTER</a>
+			</li>
+			
+			{% endif %}
+		  	</ul>
+		</nav>
+	</header>
 
-	<div class="centrar">
+
+
+	<div class="centrar"> <!--ELIMINAR-->
 		<img src="{% static 'img/logo.png' %}" width="50px" height="50px">
 		<a href="{% url 'home' %}">IR AL HOME</a>
 		<a href="{% url 'nosotros' %}">IR A NOSOTROS</a>
@@ -40,7 +79,7 @@
 		<div class="pie_de_pagina__columna"> <!--1° columna de redes sociales-->
 		<h4 class="pie_de_pagina__titulo_columna">Mis redes</h4> <!--un titulo-->
 		<ul class="enlaces enlaces_redes"> <!--una lista desordenada "UL" o "ul"-->
-			<li class="enlaces__item">
+			<li class="enlaces__item"> <!--GITHUB-->
 			<a
 				class="enlaces__enlace enlaces__enlace_footer"
 				href="https://github.com/MayraPerez15"
@@ -52,7 +91,7 @@
 				title="github"
 			/></a><!--nos permite ver una img y no texto-->
 			</li><!--cada elemento "LI" tendra su etiqueta "A" con su respectivo "enlace"-->
-			<li class="enlaces__item">
+			<li class="enlaces__item"> <!--YOUTUBE-->
 			<a
 				class="enlaces__enlace enlaces__enlace_footer"
 				href="https://www.instagram.com/mayraperez41/"
@@ -66,7 +105,7 @@
 				/>
 			</a>
 			</li>
-			<li class="enlaces__item">
+			<li class="enlaces__item"> <!--INFORMATORIO-->
 			<a
 				class="enlaces__enlace enlaces__enlace_footer"
 				href="https://twitter.com/perrezmayra"
@@ -117,7 +156,6 @@
 		</div><!--Fin de 3 columna Redireccion dentro de la Pagina-->
 		<div class="pie_de_pagina__copyright">
 			<small>Copyright 2024 &copy; Your Website</small>
-			<p>©️Copyright 2024</p>
 		</div> <!--solo es un ejemplo, o podes registrate-->
 
 	</footer>

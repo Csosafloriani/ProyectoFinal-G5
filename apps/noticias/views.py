@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.auth.decorators import login_required
 
@@ -79,4 +79,17 @@ def Noticia_form(request):
 		context["mensaje"]= "CARGAR"
 		#context['form']= form
 		
-	return render(request,"noticias/carga_noticia.html", context ) # y crear un html en template de la apps de personaje
+	return render(request,"noticias/carga_noticia.html", context ) # y crear un html en template de la apps de noticia
+
+
+#puede borra cualquier usuario la noticia
+@login_required
+#@user_passes_test(lambda id: id.is_staff)#EL STAFF SOLO PUEDE ELIMINARLA
+def Noticia_delete(request, id_noticia):
+	noticia= get_object_or_404(Noticia, id=id_noticia)
+	if request.method == "POST":  #modifique DELETE POR POST
+		noticia.delete() #Noticia o noticia
+		return redirect('noticias:listar')
+	return render(request, "noticias/noticia_delete.html", {'noticia': noticia})
+
+

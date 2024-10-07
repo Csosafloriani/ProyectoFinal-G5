@@ -15,6 +15,8 @@
 		<p>CUERPO: {{noticia.cuerpo}}</p>
 		<br><br>
 		<br>
+		<a  href="{% url 'noticias:noticia_delete' noticia.id %}">ELIIMINAR NOTICIA</a>
+		<br>
 		<form method="POST" action="{% url 'noticias:comentar' %}">{% csrf_token %}
 			<textarea name="comentario" maxlength="1500"> </textarea>
 			<input type="text" name="id_noticia" value="{{noticia.pk}}" hidden=""> 
@@ -24,7 +26,7 @@
 		<h3>COMENTARIOS</h3>
 		{% for com in comentarios %}
 		{% if user == com.usuario %}
-			<a href="">borrar</a>
+			<a href="">borrar</a> <!--aqui necesita un URL de un template delete de comentarios-->
 		{% endif %}
 		<strong>FECHA:{{com.fecha}}</strong><br>
 		<strong>USUARIO:{{com.usuario}}</strong><br>
