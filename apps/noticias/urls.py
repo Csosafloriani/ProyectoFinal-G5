@@ -13,7 +13,7 @@ urlpatterns = [
 	path('Comentario/', views.Comentar_Noticia, name = 'comentar'),
 	path('agregar/', views.agregar_noticia, name='agregar'),
     path('noticia/<pk>/editar/', views.editar_noticia, name='editar'),
-	path('noticia(<pk>eliminar/', views.eliminar_noticia, name='eliminar'),
+	path('noticia/<pk>/eliminar/', views.eliminar_noticia, name='eliminar'),
 
     ]
 	

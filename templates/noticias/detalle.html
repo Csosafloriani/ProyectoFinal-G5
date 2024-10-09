@@ -9,7 +9,7 @@
 {% block contenido %}
 	<h1> NOTICIA </h1>
 	
-	{% for noticia in noticias %}
+
 	
 
 		<img src="{{noticia.imagen.url}}" width="500" height="500">
@@ -20,33 +20,38 @@
 		<p>CATEGORIA: {{noticia.categoria_noticia}}</p>
 		<p>CUERPO: {{noticia.cuerpo}}</p>
 		
-		{% if user == noticia.usuario %}
+		{% if usuario == noticia.usuario %}
 	<ul><li>
 		<a href="{% url 'noticias:agregar' %}">agregar_noticia</a>
-		<a href="{% url 'noticias:eliminar' %}">eliminar_noticia</a>
-		<a href="{% url 'noticias:editar' %}">editar_noticia</a>
+		<a href="{% url 'noticias:eliminar' noticia.pk %}">eliminar_noticia</a>
+		<a href="{% url 'noticias:editar' noticia.pk %}">editar_noticia</a>
 	</li></ul>
 		{% else %}
 		<a href="{% url 'noticias:listar' %}">VOLVER</a>
 	{% endif %}
-	{% endfor %}
+
 		<br><br>
 		<br>
+
 		<form method="POST" action="{% url 'noticias:comentar' %}">{% csrf_token %}
 			<textarea name="comentario" maxlength="1500"> </textarea>
 			<input type="text" name="id_noticia" value="{{noticia.pk}}" hidden=""> 
 			<input type="submit" value="GUARDAR">
 		</form>
+
 		<br><br><br>
 		<h3>COMENTARIOS</h3>
 		{% for com in comentarios %}
 		{% if user == com.usuario %}
-			<a href="">borrar</a>
+			<a href=""><button  type="submit">eliminar </button> </a>
 		{% endif %}
 		<strong>FECHA:{{com.fecha}}</strong><br>
 		<strong>USUARIO:{{com.usuario}}</strong><br>
 		<p>{{com.texto}}</p>
 		{% endfor %}
+
+
+
 		<a href="{% url 'noticias:listar' %}">VOLVER</a>
 
 

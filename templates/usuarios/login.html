@@ -1,3 +1,5 @@
+
+
 {% extends 'base.html' %}
 {% load static %}
 
@@ -22,7 +24,8 @@
 				{{form.as_p}}
 				<input type="hidden" name="next" , value= "{{next}}">
 				<button type="submit">Iniciar sesión</button> <br><br>
-	
-  {% endblock %}
+				<p>Para habilitar una cuenta: <a href="{% url 'usuarios:registro' %}"> Regístrate:</a></p>
+ </form>
+				{% endblock %}
   </section>
 		</main>

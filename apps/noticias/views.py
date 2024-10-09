@@ -38,7 +38,7 @@ def Listar_Noticias(request):
 def Detalle_Noticias(request, pk):
 	contexto = {}
 
-	n = Noticia.objects.get(pk = pk) #RETORNA SOLO UN OBEJTO
+	n = Noticia.objects.get(id=1)#RETORNA SOLO UN OBEJTO
 	contexto['noticia'] = n
 
 	c = Comentario.objects.filter(noticia = n)
@@ -84,12 +84,12 @@ def agregar_noticia(request):
 		form=NoticiaForm(request.POST)
 		if form.is_valid():
 			noticia= form.save(commit=False)
-			noticia.autor=request.user
+			noticia.autor=request.usuario
 			noticia.save()
 			return redirect ('noticias')
 		else:
 			form=NoticiaForm()
-		return render(request, 'noticias/agregar_noticia.html',
+	return render(request, 'noticias/agregar_noticia.html',
 		{'noticia':noticia})
 		
 
@@ -103,7 +103,7 @@ def editar_noticia(request, pk):
 			return redirect ('noticias')
 		else:
 			form=NoticiaForm(instance=noticia)
-		return render(request, 'noticias/editar_noticia.html',
+	return render(request, 'noticias/editar_noticia.html',
 		{'noticia':noticia})
 
 @login_required 
@@ -113,10 +113,11 @@ def eliminar_noticia(request, pk):
 		noticia.delete()
 		return redirect('noticias')
 	return render(request, 'noticias/eliminar_noticia.html',
-			   {'noticia':noticia})
+			{'noticia':noticia})
     
 
 
-
+def get_succes_url(self):
+	return reverse_lazy("noticias:Listar_Noticias")
 
 

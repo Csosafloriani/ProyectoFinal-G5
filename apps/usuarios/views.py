@@ -11,6 +11,12 @@ class Registro(CreateView):
 	success_url = reverse_lazy('login')
 	template_name = 'usuarios/registro.html'
 
+def for_valid(self, form):
+    form.save()
+    return super().form_valid(form)
+
+
+
 
 def registro(request):
     if request.method == 'POST':

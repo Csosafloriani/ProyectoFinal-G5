@@ -5,14 +5,14 @@
 
 
 {% block contenido %}
-    <h2>Eliminar un artículo: {{noticia.titulo}} </h2>
- 
-
-    <form method="post" action="{% url'noticias:eliminar_noticia' noticia.pk %}">
+    <h2>Eliminar:{{noticia.titulo}} </h2>
+    <form method="post" action="{% url 'noticias:eliminar' %}" enctype="multipart/form-data">
         {% csrf_token %}
-     <button type="submit">eliminar</button>
+        <p>Eliminar</p>
+        {{ form.as_p}} 
 
-    <a href="{% url 'noticias:listar' %}">VOLVER</a>
-</form>
+        <button type="submit">Eliminar</button>
+    </form>
+        <a href="{% url 'noticias:listar' %}">VOLVER</a>
 
     {% endblock %}
