@@ -26,10 +26,9 @@
 		<!-- AGREGAR COMENTARIO -->
 		<!-- SOLO SI ESTÁ REGISTRADO-->
 		{% if request.user.is_authenticated %}
-			<form method="POST" action="{% url 'noticias:comentar' %}">
+			<form method="POST" action="{% url 'comentarios:agregar_comentario' noticia.id %}">
 				{% csrf_token %}
-				<textarea name="comentario" placeholder="Escribe tu comentario" maxlength="1500"></textarea>
-				<input type="text" name="id_noticia" value="{{noticia.pk}}" hidden=""> 
+				{{ form.as_p}}
 				<input type="submit" value="GUARDAR">
 			</form>
 		
@@ -38,15 +37,51 @@
 		{% endif %}
 
 		<br><br><br>
-		<!-- MOSTAR COMEWNTARIOS -->
+		<!-- MOSTAR COMENTARIOS -->
 		<h3>COMENTARIOS</h3>
 		{% for com in comentarios %}
-		{% if user == com.usuario %}
-			<a href="">borrar</a>
-		{% endif %}
-		<strong>FECHA:{{com.fecha}}</strong><br>
-		<strong>USUARIO:{{com.usuario}}</strong><br>
-		<p>{{com.texto}}</p>
+			<strong>FECHA:{{com.fecha}}</strong><br>
+			<strong>USUARIO:{{com.usuario}}</strong><br>
+			<p>{{com.texto}}</p>
+
+			<!--Mostrar boton para eliminar el comentario solo si es autor o admin-->
+			{% if request.user == com.usuario or request.user.is_staff %}
+				<form method="POST" action="{% url 'comentarios:eliminar' com.pk %}">
+					{% csrf_token %}
+					<button type="submit">Eliminar comentario</button>
+				</form>
+			{% endif %}
+			
+			<!--Responder comentario solo si está registrado-->
+			{% if request.user.is_authenticated %}
+				<button type="button" onclick="document.getElementById('respuesta-{{com.pk}}').style.display='block';">Responder</button>
+				<div id="respuesta-{{com.pk}}" style="display:none;">
+					<form method="POST" action="{% url 'comentarios:responder' noticia.id com.pk %}">
+						{% csrf_token %}
+						{{ form.as_p}}
+						<input type="submit" value="Responder">
+					</form>
+				</div>
+			{% endif %}
+
+			<!--Mostrar respuestas-->
+			{% for resp in com.respuestas.all %}
+				<div style="margin-left: 40px;">
+					<strong>FECHA:{{resp.fecha}}</strong><br>
+					<strong>USUARIO:{{resp.usuario}}</strong><br>
+					<p>{{resp.texto}}</p>
+
+					<!--Eliminar respuesta si es autor o admin-->
+					{% if user == resp.usuario or request.user.is_staff %}
+						<form method="POST" action="{% url 'comentarios:eliminar' resp.pk %}">
+							{% csrf_token %}
+							<button type="submit">Eliminar respuesta</button>
+						</form>
+					{% endif %}
+				</div>
+			{% endfor %}
+
+			<br>
 		{% endfor %}
 		<a href="{% url 'noticias:listar' %}">VOLVER</a>
 {% endblock contenido %}

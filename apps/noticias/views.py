@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .models import Noticia, Categoria
 from apps.comentarios.models import Comentario
+from apps.comentarios.forms import ComentarioForm
 
 from .forms import NoticiaForm
 from django.urls import reverse_lazy
@@ -37,6 +38,9 @@ def Detalle_Noticias(request, pk):
 
 	c = Comentario.objects.filter(noticia = n)
 	contexto['comentarios'] = c
+
+	#Crear una instancia del formulario de comentarios
+	contexto['form'] = ComentarioForm() #se agrega el formulario al contexto
 
 	return render(request, 'noticias/detalle.html',contexto)
 

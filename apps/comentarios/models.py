@@ -9,6 +9,7 @@ class Comentario(models.Model):
 	texto = models.TextField(max_length = 1500)
 	noticia = models.ForeignKey(Noticia, on_delete = models.CASCADE)
 	fecha = models.DateTimeField(auto_now_add=True)
+	parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='respuestas')
 
 	def __str__(self):
-		return f"{noticia}->{texto}"
+		return f"{self.noticia}->{self.texto[:50]}"
