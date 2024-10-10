@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}CONTACTO{% endblock titulo %}
+
+{% block contenido %}
+
+<center>
+    <form method="POST" style="margin:200px" >  <!--action="" enctype="multipart/form-data" DELETE POR POST-->   
+		<h1>FORMULARIO DE CONTACTO</h1>
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <table>
+            {% csrf_token %}
+            {{form}}
+        </table>
+        <input type="submit" value="enviar">
+        <a href="{% url 'home' %}">no, inicio</a>
+
+	</form>
+</center>
+
+	
+
+	
+
+{% endblock contenido%}
