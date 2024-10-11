@@ -43,11 +43,10 @@ def Detalle_Noticias(request, pk):
 
 @login_required
 def Comentar_Noticia(request):
-
 	com = request.POST.get('comentario',None)
 	usu = request.user
 	noti = request.POST.get('id_noticia', None)# OBTENGO LA PK
-	noticia = Noticia.objects.get(pk = noti) #BUSCO LA NOTICIA CON ESA PK
+	noticia = Noticia.objects.get(pk = noticia) #BUSCO LA NOTICIA CON ESA PK
 	coment = Comentario.objects.create(usuario = usu, noticia = noticia, texto = com)
 
 	return redirect(reverse_lazy('noticias:detalle', kwargs={'pk': noti}))
@@ -87,7 +86,8 @@ def agregar_noticia(request):
 			noticia= form.save(commit=True)
 			noticia.save()
 			messages.success(request, 'Noticia publicada con éxito')
-			return redirect ('noticias/listar_noticia')	
+			return redirect ('noticias:listar')	
+			
 		else:
 			form=NoticiaForm() 
 		context['form']= form
@@ -108,7 +108,7 @@ def editar_noticia(request, pk):
 		if form.is_valid():
 			form.save()
 			messages.success(request, 'Noticia publicada con éxito')
-			return redirect('noticias:detalle', pk=noticia.pk)
+			return redirect('noticias:listar')
 	else:
 		form =NoticiaForm(instance=noticia)
 	return render(request, 'noticias/editar_noticia.html', {'form': form, 'noticia': noticia})
