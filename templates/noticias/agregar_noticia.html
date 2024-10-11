@@ -4,18 +4,18 @@
     <h2>Agregar un artículo</h2>
 
   
-    <form method="post" action="{% url 'noticias:agregar' %}"enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <p>Agregar</p>
-        {{ form.as_p}} 
+        {{form.as_p}}
 
-        <button type="submit" value="Agregar_noticia"> Publicar artículo</button>
-    </form>
-        <a href="{% url 'noticias:listar' %}">VOLVER</a>
+        <button  type="submit" value="Agregar_noticia"> Publicar artículo</button>
+       
+        <p><a href="{% url 'noticias:listar' %}">VOLVER</a></p>
    
-
+      </form>
+      <h3>{{mensaje}}</h3>
     {% endblock %}
  
        
     
-{% endblock %}

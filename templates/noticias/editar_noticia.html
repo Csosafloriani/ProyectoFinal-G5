@@ -3,16 +3,18 @@
 {% block contenido %}
     <h2>Editar: {{noticia.titulo}} </h2>
 
-  
-    <form method="post" action="{% url 'noticias:editar' %}" enctype="multipart/form-data">
+   
+    <form method="post" action="{% url 'noticias:editar' noticia.pk %}" enctype="multipart/form-data">
         {% csrf_token %}
         <p>Editar</p>
-        {{ form.as_p}} 
+        {{form.as_p}} 
 
-        <button type="submit">Guardar Cambios</button>
-    </form>
+        <button type="submit" action="{% url 'noticias:detalle' noticia.pk %}" >Guardar Cambios</button>
+    
+
+    
         <a href="{% url 'noticias:listar' %}">VOLVER</a>
-
+    </form>
 
   
 {% endblock %}

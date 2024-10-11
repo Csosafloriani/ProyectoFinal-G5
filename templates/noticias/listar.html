@@ -2,9 +2,7 @@
 {% load static %}
 
 {% block title %}LISTA DE NOTICIAS{% endblock title %}
-<main>
-	<section>
-		<article >
+
 
 {% block contenido %}
 
@@ -16,25 +14,38 @@
 	href="{% url 'noticias:listar' %}"
 	class="badge bg-primary">ARTÍCULOS</a>
 		{% for cat in categorias %}
-			<a href="?id={{cat.pk}}">{{cat.nombre}}</a>
+			<a href="?id={{cat.pk}}"> {{cat.nombre}} </a>
 		{% endfor %}
+
+
 
 	</div>
 </form>
 	<h1>NOTICIAS</h1>
-
+      {{noticia.pk}}
 	{% for noticia in noticias %}
-		<img src="{{noticia.imagen.url}}"  width="100" height="100"/>
+	
+		<img src="{{noticia.imagen.url}}"  width="auto" height="auto"/>
 		
-		<p><a href="{% url 'noticias:detalle' noticia.pk %}">TITULO: {{noticia.titulo}}</a></p>
+		<p><a href="?id={{noticia.pk}}">TITULO: {{noticia.titulo}}</a></p>
 
-		<p>FECHA: {{noticia.fecha}}</p>
+		<p>FECHA: {{noticia.fecha_publicación}}</p>
 		<p>CATEGORIA: {{noticia.categoria_noticia}}</p>
 		<p>CUERPO: {{noticia.cuerpo}}</p>
+
+	
+
 		
 		<br><br>
-	{% endfor %}
+
+<a href="{% url 'noticias:agregar' %}"><button  type="submit">Agregar </button> </a>
+
+<a href="{% url 'noticias:editar' noticia.pk %}"><button  type="submit"> Editar </button> </a>
+
+<a href="{% url 'noticias:eliminar' noticia.pk %}"><button  type="submit"> Eliminar </button> </a>
+
+
+
+{% endfor %}
+
 {% endblock contenido %}
-</article>
-</section>
-</main>

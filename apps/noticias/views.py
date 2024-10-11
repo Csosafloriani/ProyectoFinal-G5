@@ -1,20 +1,14 @@
-
-#from django.shortcuts import get_object_or_404
-
-#from django. http import HttpResponse
-#from django. template import loader 
-
-
-from django.shortcuts import render, redirect
-from django.views.generic import CreateView
-
 from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import get_object_or_404
+from django. http import HttpResponse
+from django. template import loader 
+from django.shortcuts import render, redirect
+#from django.views.generic import CreateView
+#from django.views import View
 from .models import Noticia, Categoria, Comentario
-
-from .forms import NoticiaForm
-
+from .forms import NoticiaForm #importa el formulario
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 @login_required
 def Listar_Noticias(request):
@@ -78,46 +72,50 @@ CLASE.objects.all() ---> SELECT * FROM CLASE '''
 	return HttpResponse (template.render (context, request))"""
 
 
+def noticia_template(request):
+	Listar_Noticias = Noticia.objects.all()
+	template = loader.get_template("personas_template.html")
+	context = { "noticias_lista": Listar_Noticias, "title": "Inteligencia Artificial" }
+	return HttpResponse(template.render(context, request)) # lista.add(1)
+
 @login_required 
 def agregar_noticia(request):
+	context= {'form': NoticiaForm()}
 	if request.method=='POST':
-		form=NoticiaForm(request.POST)
+		form=NoticiaForm(data=request.POST, files=request.FILES)
 		if form.is_valid():
-			noticia= form.save(commit=False)
-			noticia.autor=request.usuario
+			noticia= form.save(commit=True)
 			noticia.save()
-			return redirect ('noticias')
+			messages.success(request, 'Noticia publicada con éxito')
+			return redirect ('noticias/listar_noticia')	
 		else:
-			form=NoticiaForm()
-	return render(request, 'noticias/agregar_noticia.html',
-		{'noticia':noticia})
+			form=NoticiaForm() 
+		context['form']= form
+	return render(request, 'noticias/agregar_noticia.html', context)
+		
 		
 
-@login_required 
+def get_succes_url(self):
+	return reverse_lazy ("noticias:Listar_Noticias")
+
+
+
+@login_required
 def editar_noticia(request, pk):
-	noticia=Noticia.objects.get(pk=pk)
-	if request.method=='POST':
-		form=NoticiaForm(request.POST, instance=noticia)
+	noticia = get_object_or_404(Noticia, pk=pk)
+	if request.method == "POST":
+		form = NoticiaForm(request.POST, request.FILES, instance=noticia)
 		if form.is_valid():
 			form.save()
-			return redirect ('noticias')
-		else:
-			form=NoticiaForm(instance=noticia)
-	return render(request, 'noticias/editar_noticia.html',
-		{'noticia':noticia})
+			messages.success(request, 'Noticia publicada con éxito')
+			return redirect('noticias:detalle', pk=noticia.pk)
+	else:
+		form =NoticiaForm(instance=noticia)
+	return render(request, 'noticias/editar_noticia.html', {'form': form, 'noticia': noticia})
 
-@login_required 
+@login_required
 def eliminar_noticia(request, pk):
-	noticia=Noticia.objects.get(pk=pk)
-	if request.method=='POST':
-		noticia.delete()
-		return redirect('noticias')
-	return render(request, 'noticias/eliminar_noticia.html',
-			{'noticia':noticia})
-    
-
-
-def get_succes_url(self):
-	return reverse_lazy("noticias:Listar_Noticias")
-
-
+	noticia = get_object_or_404(Noticia, pk=pk)
+	noticia.delete()
+	messages.success(request, 'Noticia eliminada con éxito')
+	return redirect('noticias:listar')

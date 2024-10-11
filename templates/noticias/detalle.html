@@ -3,14 +3,11 @@
 
 {% block title %}NOTICIAS{% endblock title %}
 
-<main>
-	<section>
-		<article  class="articulos" >
-{% block contenido %}
-	<h1> NOTICIA </h1>
-	
 
 	
+{% block contenido %}
+<!--detalle de la noticia-->
+	<h1> NOTICIA </h1>
 
 		<img src="{{noticia.imagen.url}}" width="500" height="500">
 		
@@ -19,33 +16,34 @@
 		<p>FECHA: {{noticia.fecha}}</p>
 		<p>CATEGORIA: {{noticia.categoria_noticia}}</p>
 		<p>CUERPO: {{noticia.cuerpo}}</p>
+
+
+    <!--Detalle:acá me trae una noticia, en la que el usuario registrado o admin  puede eliminar o editar-->
 		
-		{% if usuario == noticia.usuario %}
-	<ul><li>
-		<a href="{% url 'noticias:agregar' %}">agregar_noticia</a>
-		<a href="{% url 'noticias:eliminar' noticia.pk %}">eliminar_noticia</a>
-		<a href="{% url 'noticias:editar' noticia.pk %}">editar_noticia</a>
-	</li></ul>
-		{% else %}
-		<a href="{% url 'noticias:listar' %}">VOLVER</a>
-	{% endif %}
+  
+ {% if noticia ==  noticia.usuario %}
+ <a href="{% url 'noticias:editar' noticia.pk %}">Editar</a>
+ <a href="{% url 'noticias:eliminar' noticia.pk %}">Eliminar</a>
+{% endif %}
+<br>
 
 		<br><br>
 		<br>
-
-		<form method="POST" action="{% url 'noticias:comentar' %}">{% csrf_token %}
+<!--acá el usuario registrado puede comentar la noticia-->
+		<form method="POST" action="{% url 'noticias:comentar' noticia.id %}">{% csrf_token %}
 			<textarea name="comentario" maxlength="1500"> </textarea>
 			<input type="text" name="id_noticia" value="{{noticia.pk}}" hidden=""> 
 			<input type="submit" value="GUARDAR">
 		</form>
-
+ <!--acá veo los comentarios al que el usuario que los efectuó puede borrarlos-->
 		<br><br><br>
 		<h3>COMENTARIOS</h3>
+		 {{comentario.titulo}
 		{% for com in comentarios %}
 		{% if user == com.usuario %}
 			<a href=""><button  type="submit">eliminar </button> </a>
 		{% endif %}
-		<strong>FECHA:{{com.fecha}}</strong><br>
+		<strong>FECHA:{{com.fecha_publicación}}</strong><br>
 		<strong>USUARIO:{{com.usuario}}</strong><br>
 		<p>{{com.texto}}</p>
 		{% endfor %}
@@ -54,9 +52,9 @@
 
 		<a href="{% url 'noticias:listar' %}">VOLVER</a>
 
-
+	
 {% endblock %}
 
-	</article>
-	</section>
-	</main>
+
+	
+
