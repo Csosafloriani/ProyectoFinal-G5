@@ -29,7 +29,7 @@
 			<form method="POST" action="{% url 'comentarios:agregar_comentario' noticia.id %}">
 				{% csrf_token %}
 				{{ form.as_p}}
-				<input type="submit" value="GUARDAR">
+				<input type="submit" value="Comentar">
 			</form>
 		
 		{% else %}

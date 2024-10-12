@@ -94,10 +94,12 @@ def Editar_Noticia(request, pk):
 	return render(request, 'noticias/editar.html', {'form': form, 'noticia': noticia})
 
 @login_required
-@user_passes_test(lambda u: u.is_staff)
+#@user_passes_test(lambda u: u.is_staff)
 def Eliminar_Noticia(request, pk):
 	noticia = get_object_or_404(Noticia, pk=pk)
-	noticia.delete()
+
+	if request.user == noticia.autor and not request.user.is_staff:
+		noticia.delete()
 	return redirect('noticias:listar')
 
 #{'nombre':'name', 'apellido':'last name', 'edad':23}
