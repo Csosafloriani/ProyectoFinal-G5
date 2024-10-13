@@ -12,7 +12,7 @@
 	<header class="encabezado"> <!--para agregar estilos más adelante-->
 		<nav class="navegacion"> <!--una etiqueta con la descripcion navegacion-->
 			<ul class="enlaces">
-				<a class="enlaces__icono" href="">
+				<a class="enlaces__icono" href=""><!--AQUI VA EL LINK DE EL ICONO-->
 					<img class="navegacion__enlace1" src="{% static 'img/logo1.ico' %}" width="50px" height="50px">
 				</a>
 				<a class="navegacion__enlace1" href="#presentacion"> <!--una etiqueta a con una class y una referencia href-->
@@ -32,7 +32,7 @@
 			{% if user.is_authenticated %}  
 			<strong class="enlaces__enlace1">{{ user.username }}</strong>
 			<li class="enlaces__item">
-				<a class="enlaces__enlace1" href="{% url 'logout' %}">LOGOUT</a>
+				<a class="enlaces__enlace1" href="{% url 'usuarios:logout' %}">LOGOUT</a> <!--CAMBIE LINK PARA LOGOUT/cerrar sesion-->
 			</li >
 			{% else %}
 			<li class="enlaces__item">
@@ -49,7 +49,7 @@
 
 
 
-	<div class="centrar"> <!--ELIMINAR-->
+	<div class="centrar"> <!--ELIMINAR TODOO-->
 		<img src="{% static 'img/logo.png' %}" width="50px" height="50px">
 		<a href="{% url 'home' %}">IR AL HOME</a>
 		<a href="{% url 'nosotros' %}">IR A NOSOTROS</a>
@@ -74,10 +74,10 @@
 	</div>
 	
 
-	<h2>HOLA SOY NOSOTROS</h2>
+	<h2>PIE DE PAGINA</h2> <!--poner los enlaces correspondientes-->
 	<footer class="pie_de_pagina" role="contentinfo"> <!--para agregar informacion importante a nuestro sitio web-->
 		<div class="pie_de_pagina__columna"> <!--1° columna de redes sociales-->
-		<h4 class="pie_de_pagina__titulo_columna">Mis redes</h4> <!--un titulo-->
+		<h4 class="pie_de_pagina__titulo_columna">Mi Syte | Enlaces</h4> <!--un titulo-->
 		<ul class="enlaces enlaces_redes"> <!--una lista desordenada "UL" o "ul"-->
 			<li class="enlaces__item"> <!--GITHUB-->
 			<a

@@ -8,7 +8,7 @@
 		{% csrf_token %}
 		{{ form.as_p }}
 		<button type="submit">cargar noticia</button>
-		<button class="direccion" href="{% url 'noticias:listar' %}">VOLVER</button>
+		
 		<a href="{% url 'noticias:listar' %}" class="button">VOLVER</a>
 
 		

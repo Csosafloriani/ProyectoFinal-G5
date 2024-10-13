@@ -21,15 +21,28 @@
 
 	<h1>ACA VOY A LISTAR LAS NOTICIAS</h1>
 
-	{% for noti in noticias %}
-		<img src="{{noti.imagen.url}}" width="100" height="100">
+	<div class="contenedor_tarjetas_grid">
+		{% for noti in noticias %}
+		<article class="tarjeta">
+			
+			<section class="seccion_descripcion">
+				<div class="seccion_descripcion__info scroll scroll_fino scroll_gris">
+					<img class="tarjeta__imagen" src="{{noti.imagen.url}}" width="100" height="100">
+					<p class="seccion_descripcion__titulo"><a href="{% url 'noticias:detalle' noti.pk %}">TITULO: {{noti.titulo}}</a></p>
+					<span class="tarjeta__divisor"></span>
+					<p class="seccion_descripcion__parrafo" >FECHA: {{noti.fecha}}</p>
+					<p class="seccion_descripcion__parrafo">CATEGORIA: {{noti.categoria_noticia}}</p>
+					<p class="seccion_descripcion__parrafo">AUTOR: {{noti.autor}}</p>
+					<p class="seccion_descripcion__parrafo">CUERPO: {{noti.cuerpo}}</p>
+					<a class="boton"  href="{% url 'noticias:detalle' noti.pk %}">ver</a>
+					<br>
+					<br>
+				</div>
+			</section>
 		
-		<p><a href="{% url 'noticias:detalle' noti.pk %}">TITULO: {{noti.titulo}}</a></p>
-		
-		<p>FECHA: {{noti.fecha}}</p>
-		<p>CATEGORIA: {{noti.categoria_noticia}}</p>
-		<p>CUERPO: {{noti.cuerpo}}</p>
-		<br><br>
-	{% endfor %}
+		</article>
+		{% endfor %}
+	</div>
+
 {% endblock contenido %}
 
