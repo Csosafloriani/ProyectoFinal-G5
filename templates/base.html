@@ -32,6 +32,14 @@
 	{% block contenido %}
 	
 	{% endblock contenido %}
+
+	{% if messages %}
+		<ul>
+			{% for message in messages %}
+				<li>{{ message }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
 	</div>
 </body>
 </html>

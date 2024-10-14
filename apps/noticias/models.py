@@ -14,15 +14,8 @@ class Noticia(models.Model):
 	imagen = models.ImageField(upload_to = 'noticias')
 	categoria_noticia = models.ForeignKey(Categoria, on_delete = models.CASCADE)
 	fecha = models.DateTimeField(auto_now_add=True)
+	autor = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+	publicado = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.titulo
-
-class Comentario(models.Model):
-	usuario = models.ForeignKey(Usuario, on_delete = models.CASCADE)
-	texto = models.TextField(max_length = 1500)
-	noticia = models.ForeignKey(Noticia, on_delete = models.CASCADE)
-	fecha = models.DateTimeField(auto_now_add=True)
-
-	def __str__(self):
-		return f"{noticia}->{texto}"

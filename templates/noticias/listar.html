@@ -15,7 +15,10 @@
 	</div>
 
 	<h1>ACA VOY A LISTAR LAS NOTICIAS</h1>
-
+	<!--Crear nueva noticia-->
+	{% if request.user.is_authenticated or request.user.is_staff %}
+		<h2><a href="{% url 'noticias:crear' %}" class="btn btn-primary">Crear Noticia</a></h2>
+	{% endif %}
 	{% for noti in noticias %}
 		<img src="{{noti.imagen.url}}" width="100" height="100">
 		
