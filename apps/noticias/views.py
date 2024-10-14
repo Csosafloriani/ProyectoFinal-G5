@@ -1,14 +1,10 @@
 from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
-
-from django.contrib.auth.decorators import login_required, user_passes_test
-
-
-from .models import Noticia, Categoria
+from .models import Categoria, Noticia, Denuncia
 from apps.comentarios.models import Comentario
 from apps.comentarios.forms import ComentarioForm
-
-from .forms import NoticiaForm
+from .forms import NoticiaForm, DenunciaForm
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 
 def Listar_Noticias(request):
@@ -131,6 +127,24 @@ def Noticia_form(request):
 		#context['form']= form
 		
 	return render(request,"noticias/carga_noticia.html", context ) # y crear un html en template de la apps de noticia
+
+@login_required
+def Denunciar_Noticia(request, pk):
+    noticia = get_object_or_404(Noticia, pk=pk)
+
+    if request.method == 'POST':
+        form = DenunciaForm(request.POST)
+        if form.is_valid():
+            denuncia = form.save(commit=False)
+            denuncia.noticia = noticia
+            denuncia.usuario = request.user
+            denuncia.save()
+            # Redirigir a la vista de detalles de la noticia o a otro lugar
+            return redirect(reverse_lazy('noticias:detalle', kwargs={'pk': pk}))
+    else:
+        form = DenunciaForm()
+
+    return render(request, 'noticias/denunciar.html', {'form': form, 'noticia': noticia})
 
 
 #puede borra cualquier usuario la noticia

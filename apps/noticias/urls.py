@@ -16,5 +16,6 @@ urlpatterns = [
 	path('cargar_noticia/', views.Noticia_form, name = 'cargar_noticia'), #agrege
     
 	path('noticia/delete/<int:id_noticia>', views.Noticia_delete, name = 'noticia_delete'), #agrege
-	
+
+	path('<int:pk>/denunciar/', views.Denunciar_Noticia, name='denunciar'),
 ]
