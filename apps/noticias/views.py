@@ -11,7 +11,6 @@ from apps.comentarios.forms import ComentarioForm
 from .forms import NoticiaForm
 from django.urls import reverse_lazy
 
-
 def Listar_Noticias(request):
 	contexto = {}
 
@@ -116,3 +115,32 @@ CLASE.objects.filter(campos = ____)
 CLASE.objects.all() ---> SELECT * FROM CLASE
 
 '''
+
+
+@login_required
+def Noticia_form(request):
+	context= { 'form': NoticiaForm() }
+	if request.method == "POST":
+		form=NoticiaForm(data=request.POST, files=request.FILES)
+		if form.is_valid():
+			form.save()
+			context["mensaje"]= "se guardo el form"
+			return redirect("noticias:cargar_noticia") # noticias= la url que se define en la urls.py de la apps
+	else: 
+		context["mensaje"]= "CARGAR"
+		#context['form']= form
+		
+	return render(request,"noticias/carga_noticia.html", context ) # y crear un html en template de la apps de noticia
+
+
+#puede borra cualquier usuario la noticia
+@login_required
+#@user_passes_test(lambda id: id.is_staff)#EL STAFF SOLO PUEDE ELIMINARLA
+def Noticia_delete(request, id_noticia):
+	noticia= get_object_or_404(Noticia, id=id_noticia)
+	if request.method == "POST":  #modifique DELETE POR POST
+		noticia.delete() #Noticia o noticia
+		return redirect('noticias:listar')
+	return render(request, "noticias/noticia_delete.html", {'noticia': noticia})
+
+

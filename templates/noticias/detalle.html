@@ -5,22 +5,30 @@
 
 
 {% block contenido %}
-	<h1>DETALLES DE LA NOTICIA</h1>
-		<!-- NOTICIA -->
-		<img src="{{noticia.imagen.url}}" width="500" height="500">
-		
-		<p>TITULO: {{noticia.titulo}}</p>
-		
-		<p>FECHA: {{noticia.fecha}}</p>
-		<p>CATEGORIA: {{noticia.categoria_noticia}}</p>
-		<p>CUERPO: {{noticia.cuerpo}}</p>
-		<p>PUBLICADO POR: {{noticia.autor.username}}</p>
-		<br><br>
+	
+	<h1>ACA VOY A DETALLAR UNA NOTICIA</h1>
+
+	<article class="articulo sobre_mi">
+		<section class="seccion_descripcion">
+			<div class="seccion_descripcion__porta_retrato">
+					<img class="seccion_descripcion__imagen" src="{{noticia.imagen.url}}" width="500" height="500">
+			</div>
+		</section>
+		<p class="seccion_descripcion__titulo">TITULO: {{noticia.titulo}}</p>
+		<p class="seccion_descripcion__parrafo"><a href="">AUTOR: {{noticia.autor.username}}</a></p> <!--capas agrege url para filtrar las noticias del autor-->
+		<p class="seccion_descripcion__parrafo">FECHA: {{noticia.fecha}}</p>
+		<p class="seccion_descripcion__parrafo">CATEGORIA: {{noticia.categoria_noticia}}</p>
+		<div class="seccion_descripcion__info scroll scroll_fino scroll_gris">
+			<p class="seccion_descripcion__parrafo">CUERPO: {{noticia.cuerpo}}</p>
+		</div>
+	
+		<br><br><br>
 		<!-- MOSTRAR LOS BOTONES DE EDITAR/ELIMINAR SOLO SI ES EL AUTOR O ADMIN-->
 		{% if request.user == noticia.autor or request.user.is_staff %}
-			<a href="{% url 'noticias:editar' noticia.pk %}">Editar</a>
-			<a href="{% url 'noticias:eliminar' noticia.pk %}">Eliminar</a>
+			<a href="{% url 'noticias:editar' noticia.pk %}">Editar Noticia</a>
+			<a href="{% url 'noticias:eliminar' noticia.pk %}">Eliminar Noticia</a>
 		{% endif %}
+		
 		<br>
 
 		<!-- AGREGAR COMENTARIO -->

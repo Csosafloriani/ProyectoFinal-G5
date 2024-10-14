@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.usuarios',
     'apps.noticias',
     'apps.comentarios',
+    'apps.contacto',
 ]
 
 MESSAGE_TAGS = {

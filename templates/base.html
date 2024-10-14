@@ -9,8 +9,47 @@
 
 
 <body class="contenedor">
+	<header class="encabezado"> <!--para agregar estilos más adelante-->
+		<nav class="navegacion"> <!--una etiqueta con la descripcion navegacion-->
+			<ul class="enlaces">
+				<a class="enlaces__icono" href=""><!--AQUI VA EL LINK DE EL ICONO-->
+					<img class="navegacion__enlace1" src="{% static 'img/logo1.ico' %}" width="50px" height="50px">
+				</a>
+				<a class="navegacion__enlace1" href="#presentacion"> <!--una etiqueta a con una class y una referencia href-->
+					<h1 class="enlaces__enlace1">INFORMATORIO</h1> <!--un titulo-->
+		  		</a>
+			</ul>
+		  	<ul class="enlaces"> <!--una lista de items-->
+			<li class="enlaces__item">
+			  <a class="enlaces__enlace1" href="{% url 'home' %}"> HOME </a> <!--el items presentacion-->
+			</li>
+			<li class="enlaces__item">
+			  <a class="enlaces__enlace1" href="{% url 'nosotros' %}"> NOSOTROS </a><!--el items sobre mi-->
+			</li>
+			<li class="enlaces__item">
+			  <a class="enlaces__enlace1" href="{% url 'noticias:listar' %}"> NOTICIAS </a> <!--items proyectos-->
+			</li>
+			{% if user.is_authenticated %}  
+			<strong class="enlaces__enlace1">{{ user.username }}</strong>
+			<li class="enlaces__item">
+				<a class="enlaces__enlace1" href="{% url 'usuarios:logout' %}">LOGOUT</a> <!--CAMBIE LINK PARA LOGOUT/cerrar sesion-->
+			</li >
+			{% else %}
+			<li class="enlaces__item">
+				<a class="enlaces__enlace1" href="{% url 'login' %}">LOGIN</a>
+			</li>
+			<li class="enlaces__item">
+				<a class="enlaces__enlace1" href="{% url 'usuarios:registro' %}">REGISTER</a>
+			</li>
+			
+			{% endif %}
+		  	</ul>
+		</nav>
+	</header>
 
-	<div class="centrar">
+
+
+	<div class="centrar"> <!--ELIMINAR TODOO-->
 		<img src="{% static 'img/logo.png' %}" width="50px" height="50px">
 		<a href="{% url 'home' %}">IR AL HOME</a>
 		<a href="{% url 'nosotros' %}">IR A NOSOTROS</a>
@@ -41,5 +80,98 @@
 		</ul>
 	{% endif %}
 	</div>
+	
+
+	<h2>PIE DE PAGINA</h2> <!--poner los enlaces correspondientes-->
+	<footer class="pie_de_pagina" role="contentinfo"> <!--para agregar informacion importante a nuestro sitio web-->
+		<div class="pie_de_pagina__columna"> <!--1° columna de redes sociales-->
+		<h4 class="pie_de_pagina__titulo_columna">Mi Syte | Enlaces</h4> <!--un titulo-->
+		<ul class="enlaces enlaces_redes"> <!--una lista desordenada "UL" o "ul"-->
+			<li class="enlaces__item"> <!--GITHUB-->
+			<a
+				class="enlaces__enlace enlaces__enlace_footer"
+				href="https://github.com/MayraPerez15"
+				target="_blank"
+				><img
+				class="enlaces__icono"
+				src="{% static 'img/logos/github-logo.png' %}"
+				alt="logo de github"
+				title="github"
+			/></a><!--nos permite ver una img y no texto-->
+			</li><!--cada elemento "LI" tendra su etiqueta "A" con su respectivo "enlace"-->
+			<li class="enlaces__item"> <!--YOUTUBE-->
+			<a
+				class="enlaces__enlace enlaces__enlace_footer"
+				href="https://www.instagram.com/mayraperez41/"
+				target="_blank"
+			>
+				<img
+				class="enlaces__icono"
+				src="{% static 'img/logos/youtube.png' %}"
+				alt="logo de youtube"
+				title="youtube"
+				/>
+			</a>
+			</li>
+			<li class="enlaces__item"> <!--INFORMATORIO-->
+			<a
+				class="enlaces__enlace enlaces__enlace_footer"
+				href="https://twitter.com/perrezmayra"
+				target="_blank"
+				><img
+				class="enlaces__icono"
+				src="{% static 'img/logo1.ico' %}"
+				alt="logo del informatorio"
+				title="informatorio"
+			/></a>
+			</li>
+		</ul>
+		</div> <!--fin de 1 columna Redes sociales-->
+		<div class="pie_de_pagina__columna"> <!--2° columna para EMAIL-->
+		<h4 class="pie_de_pagina__titulo_columna">Contactame</h4>
+		<ul class="enlaces enlaces_vertical">
+			<li class="enlaces__item">
+			<a
+				class="enlaces__enlace enlaces__enlace_footer"
+				href="mailto:mayranoemiperez2021@gmail.com?subject=Consulta%20desde%20la%20plataforma%20web"
+				target="_blank"
+				>Mail: mayranoemiperez2021@gmail.com</a
+			>
+			</li>
+		</li>
+		<li class="enlaces__item">
+			<a class="enlaces__enlace1" href="{% url 'contacto:contacto' %}">Contacto</a>
+		</li>
+		</ul>
+		</div><!--Fin de 2 columna email-->
+		<div class="pie_de_pagina__columna" role="navigation"> <!--3° columna para redirigirse en la pagina-->
+		<h4 class="pie_de_pagina__titulo_columna">Secciones</h4>
+		<ul class="enlaces enlaces_vertical">
+			<li class="enlaces__item">
+			<a
+				class="enlaces__enlace enlaces__enlace_footer"
+				href="{% url 'home' %}"
+				>Home</a
+			>
+			</li>
+			<li class="enlaces__item">
+			<a class="enlaces__enlace enlaces__enlace_footer" href="{% url 'nosotros' %}"
+				>Nosotros</a
+			>
+			</li>
+			<li class="enlaces__item">
+			<a class="enlaces__enlace enlaces__enlace_footer" href="{% url 'noticias:listar' %}"
+				>Noticias</a
+			>
+			</li>
+		</ul>
+		</div><!--Fin de 3 columna Redireccion dentro de la Pagina-->
+		<div class="pie_de_pagina__copyright">
+			<small>Copyright 2024 &copy; Your Website</small>
+		</div> <!--solo es un ejemplo, o podes registrate-->
+
+	</footer>
+
+
 </body>
 </html>

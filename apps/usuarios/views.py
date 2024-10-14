@@ -7,6 +7,8 @@ from django.views.generic import CreateView
 from django.urls import reverse_lazy
 
 from .forms import RegistroForm
+from django.contrib import messages
+from django.contrib.auth import logout 
 # Create your views here.
 
 #class Registro(CreateView):
