@@ -1,3 +1,5 @@
 db.sqlite3
 ve/
 ent_vir/
+__pycache__/
+*.pyc
