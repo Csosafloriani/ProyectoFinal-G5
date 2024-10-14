@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}CARGAR NOTICIA{% endblock titulo %}
+
+{% block contenido %}
+
+<h2>Usted desea eliminar la noticia: {{ noticia.titulo }} ?</h2>
+
+	<form method="POST" action="{% url 'noticias:noticia_delete' noticia.id %}"  >  <!--action="" enctype="multipart/form-data" DELETE POR POST-->   
+		{% csrf_token %}
+		
+		<button type="submit" accion="" >si, eliminar</button>
+        <a href="{% url 'noticias:listar' %}">no, inicio</a>
+
+	</form>
+
+	
+
+{% endblock contenido%}

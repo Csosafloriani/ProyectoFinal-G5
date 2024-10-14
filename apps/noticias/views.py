@@ -1,14 +1,14 @@
+from django.shortcuts import render, redirect, get_object_or_404
+
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
-from django. http import HttpResponse
-from django. template import loader 
-from django.shortcuts import render, redirect
-#from django.views.generic import CreateView
-#from django.views import View
+
 from .models import Noticia, Categoria, Comentario
-from .forms import NoticiaForm #importa el formulario
+
 from django.urls import reverse_lazy
-from django.contrib import messages
+
+from .forms import NoticiaForm
+
+
 
 @login_required
 def Listar_Noticias(request):
@@ -32,7 +32,7 @@ def Listar_Noticias(request):
 def Detalle_Noticias(request, pk):
 	contexto = {}
 
-	n = Noticia.objects.get(id=1)#RETORNA SOLO UN OBEJTO
+	n = Noticia.objects.get(pk = pk) #RETORNA SOLO UN OBEJTO
 	contexto['noticia'] = n
 
 	c = Comentario.objects.filter(noticia = n)
@@ -43,10 +43,11 @@ def Detalle_Noticias(request, pk):
 
 @login_required
 def Comentar_Noticia(request):
+
 	com = request.POST.get('comentario',None)
 	usu = request.user
 	noti = request.POST.get('id_noticia', None)# OBTENGO LA PK
-	noticia = Noticia.objects.get(pk = noticia) #BUSCO LA NOTICIA CON ESA PK
+	noticia = Noticia.objects.get(pk = noti) #BUSCO LA NOTICIA CON ESA PK
 	coment = Comentario.objects.create(usuario = usu, noticia = noticia, texto = com)
 
 	return redirect(reverse_lazy('noticias:detalle', kwargs={'pk': noti}))
@@ -62,60 +63,47 @@ ORM
 
 CLASE.objects.get(pk = ____)
 CLASE.objects.filter(campos = ____)
-CLASE.objects.all() ---> SELECT * FROM CLASE '''
+CLASE.objects.all() ---> SELECT * FROM CLASE
 
-"""def noticia (request):
-	noticias_list=Noticia.object.all()
-	template=loader.get_template ("listar.html")
-	context={"noticias_list":noticias_list}
-	return HttpResponse (template.render (context, request))"""
-
-
-def noticia_template(request):
-	Listar_Noticias = Noticia.objects.all()
-	template = loader.get_template("personas_template.html")
-	context = { "noticias_lista": Listar_Noticias, "title": "Inteligencia Artificial" }
-	return HttpResponse(template.render(context, request)) # lista.add(1)
-
-@login_required 
-def agregar_noticia(request):
-	context= {'form': NoticiaForm()}
-	if request.method=='POST':
-		form=NoticiaForm(data=request.POST, files=request.FILES)
-		if form.is_valid():
-			noticia= form.save(commit=True)
-			noticia.save()
-			messages.success(request, 'Noticia publicada con éxito')
-			return redirect ('noticias:listar')	
-			
-		else:
-			form=NoticiaForm() 
-		context['form']= form
-	return render(request, 'noticias/agregar_noticia.html', context)
-		
-		
-
-def get_succes_url(self):
-	return reverse_lazy ("noticias:Listar_Noticias")
-
+'''
 
 
 @login_required
-def editar_noticia(request, pk):
-	noticia = get_object_or_404(Noticia, pk=pk)
+def Noticia_form(request):
+	context= { 'form': NoticiaForm() }
+	if request.method == "POST":
+		form=NoticiaForm(data=request.POST, files=request.FILES)
+		if form.is_valid():
+			form.save()
+			context["mensaje"]= "se guardo el form"
+			return redirect("noticias:cargar_noticia") # noticias= la url que se define en la urls.py de la apps
+	else: 
+		context["mensaje"]= "CARGAR"
+		#context['form']= form
+		
+	return render(request,"noticias/carga_noticia.html", context ) # y crear un html en template de la apps de noticia
+#editar
+
+@login_required
+def Noticia_editar(request, id_noticia):
+	noticia = get_object_or_404(Noticia, id=id_noticia)
 	if request.method == "POST":
 		form = NoticiaForm(request.POST, request.FILES, instance=noticia)
 		if form.is_valid():
 			form.save()
-			messages.success(request, 'Noticia publicada con éxito')
-			return redirect('noticias:listar')
+			return redirect('noticias:detalle', id_noticia )
 	else:
 		form =NoticiaForm(instance=noticia)
 	return render(request, 'noticias/editar_noticia.html', {'form': form, 'noticia': noticia})
 
+#puede borra cualquier usuario la noticia
 @login_required
-def eliminar_noticia(request, pk):
-	noticia = get_object_or_404(Noticia, pk=pk)
-	noticia.delete()
-	messages.success(request, 'Noticia eliminada con éxito')
-	return redirect('noticias:listar')
+#@user_passes_test(lambda id: id.is_staff)#EL STAFF SOLO PUEDE ELIMINARLA
+def Noticia_delete(request, id_noticia):
+	noticia= get_object_or_404(Noticia, id=id_noticia)
+	if request.method == "POST":  #modifique DELETE POR POST
+		noticia.delete() #Noticia o noticia
+		return redirect('noticias:listar')
+	return render(request, "noticias/noticia_delete.html", {'noticia': noticia})
+
+

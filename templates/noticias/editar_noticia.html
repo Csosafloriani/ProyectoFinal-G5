@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
-    <h2>Editar: {{noticia.titulo}} </h2>
+    <h2>Usted desea editar la noticia: {{noticia.titulo}}?</h2>
 
    
-    <form method="post" action="{% url 'noticias:editar' noticia.pk %}" enctype="multipart/form-data">
+    <form method="post" action="{% url 'noticias:editar_noticia' noticia.id %}" enctype="multipart/form-data">
         {% csrf_token %}
         <p>Editar</p>
         {{form.as_p}} 
 
-        <button type="submit" action="{% url 'noticias:detalle' noticia.pk %}" >Guardar </button>
+        <button type="submit" action="{% url 'noticias:detalle' noticia.id %}" >si, Guardar </button>
     
 
     
-        <a href="{% url 'noticias:listar' %}">VOLVER</a>
+        <a href="{% url 'noticias:listar' %}">no, volver</a>
     </form>
 
   
