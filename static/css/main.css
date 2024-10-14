@@ -578,5 +578,63 @@
     }
   }
 
+/* Estilos generales del formulario */
+form {
+    background-color: #f9f9f9; /* Color de fondo */
+    border: 1px solid #ddd; /* Borde del formulario */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    margin: 20px auto; /* Margen superior e inferior y centrado */
+    max-width: 400px; /* Ancho máximo del formulario */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
 
+/* Títulos del formulario */
+h2 {
+    text-align: center; /* Centrar texto */
+    color: #333; /* Color del texto */
+    margin-bottom: 20px; /* Margen inferior */
+}
 
+/* Estilos de los campos de entrada */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%; /* Ancho completo */
+    padding: 10px; /* Espaciado interno */
+    margin: 10px 0; /* Margen superior e inferior */
+    border: 1px solid #ccc; /* Borde de los campos */
+    border-radius: 5px; /* Bordes redondeados */
+    box-sizing: border-box; /* Incluye el padding en el ancho total */
+    transition: border-color 0.3s; /* Transición de color del borde */
+}
+
+/* Cambios de estilo al enfocarse en los campos */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #66afe9; /* Color de borde al enfocar */
+    outline: none; /* Sin borde por defecto */
+}
+
+/* Estilos para el botón */
+button {
+    background-color: #5cb85c; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    padding: 10px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+    width: 100%; /* Ancho completo */
+    transition: background-color 0.3s; /* Transición de color de fondo */
+}
+
+/* Cambios de estilo al pasar el cursor sobre el botón */
+button:hover {
+    background-color: #4cae4c; /* Color más oscuro al pasar el cursor */
+}
+
+/* Cambios de estilo al pasar el cursor sobre el enlace */
+a:hover {
+    text-decoration: underline; /* Subrayar al pasar el cursor */
+}
