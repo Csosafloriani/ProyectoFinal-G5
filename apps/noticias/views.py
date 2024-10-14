@@ -97,7 +97,7 @@ def Editar_Noticia(request, pk):
 def Eliminar_Noticia(request, pk):
 	noticia = get_object_or_404(Noticia, pk=pk)
 
-	if request.user == noticia.autor and not request.user.is_staff:
+	if request.user == noticia.autor or request.user.is_staff:
 		noticia.delete()
 	return redirect('noticias:listar')
 
