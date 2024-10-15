@@ -28,6 +28,11 @@
 			<a href="{% url 'noticias:editar' noticia.pk %}">Editar Noticia</a>
 			<a href="{% url 'noticias:eliminar' noticia.pk %}">Eliminar Noticia</a>
 		{% endif %}
+
+		<!-- Mostrar boton denunciar solo si es un usuario distinto al autor o al admin-->
+		{% if request.user.is_authenticated and request.user != noticia.autor and not request.user.is_staff  %}
+		<a href="{% url 'noticias:denunciar' noticia.pk %}" class="btn btn-danger">Denunciar</a>
+		{% endif %}
 		
 		<br>
 
@@ -71,11 +76,6 @@
 					</form>
 				</div>
 			{% endif %}
-
-            
-            {% if user.is_authenticated %}
-                <a href="{% url 'noticias:denunciar' noticia.pk %}" class="btn btn-danger">Denunciar</a>
-            {% endif %}
 
 			<!--Mostrar respuestas-->
 			{% for resp in com.respuestas.all %}
