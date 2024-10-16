@@ -14,14 +14,43 @@
 	{% endif %}
 
 	<div class="submenu">
-		<a href="{% url 'noticias:listar' %}">TODAS</a>
-		{% for cat in categorias %}
-			<a href="?id={{cat.pk}}">{{cat.nombre}}</a>
-		{% endfor %}
+		
 	</div>
+	<br>
 
 
-	<h1>ACA VOY A LISTAR LAS NOTICIAS</h1>
+	<h1>NOTICIAS</h1>
+
+	<form method="GET">
+		<!-- Filtro por categoría -->
+		<label for="categoria">Categoría:</label>
+		<select name="categoria" id="categoria">
+			<option value="">Todas</option>
+			{% for categoria in categorias %}
+				<option value="{{ categoria.id }}" {% if request.GET.categoria == categoria.id|stringformat:"s" %}selected{% endif %}>
+					{{ categoria.nombre }}
+				</option>
+			{% endfor %}
+		</select>
+		
+		<!-- Filtro por autor -->
+		<label for="autor">Autor:</label>
+		<select name="autor" id="autor">
+        <option value="">Todos</option>
+        {% for autor in autores %}
+            <option value="{{ autor.id }}" {% if request.GET.autor == autor.id|stringformat:"s" %}selected{% endif %}>
+                {{ autor.username }}
+            </option>
+        {% endfor %}
+		</select>
+
+		<!-- Filtro por fecha -->
+		<label for="fecha">Fecha:</label>
+		<input type="date" name="fecha" value="{{ request.GET.fecha }}">
+	
+		<button type="submit">Filtrar</button>
+
+	</form>
 
 	<div class="contenedor_tarjetas_grid">
 		{% for noti in noticias %}
@@ -43,6 +72,8 @@
 			</section>
 		
 		</article>
+		{% empty %}
+			<li>No se encontraron noticias.</li>
 		{% endfor %}
 	</div>
 

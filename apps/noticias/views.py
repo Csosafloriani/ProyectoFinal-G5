@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .models import Noticia, Categoria
 from apps.comentarios.models import Comentario
+from apps.usuarios.models import Usuario
 from apps.comentarios.forms import ComentarioForm
 
 from .forms import NoticiaForm
@@ -14,17 +15,31 @@ from django.urls import reverse_lazy
 def Listar_Noticias(request):
 	contexto = {}
 
+	# Parametros de filtro desde la url
 	id_categoria = request.GET.get('id',None)
+	autor_id = request.GET.get('autor',None)
+	fecha = request.GET.get('fecha',None)
 
+	# Consulta base
+	noticias = Noticia.objects.all()
+
+	#aplicar filtro categoria si existe
 	if id_categoria:
-		n = Noticia.objects.filter(categoria_noticia = id_categoria)
-	else:
-		n = Noticia.objects.all() #RETORNA UNA LISTA DE OBJETOS
+		noticias = Noticia.objects.filter(categoria_noticia = id_categoria)
+	
+	# Aplicar filtro autor si existe
+	if autor_id:
+		noticias = noticias.filter(autor_id=autor_id)
+	
+	# Aplicar filtro fecha si existe
+	if fecha:
+		noticias = noticias.filter(fecha=fecha)
 
-	contexto['noticias'] = n
+	contexto['noticias'] = noticias
 
-	cat = Categoria.objects.all().order_by('nombre')
-	contexto['categorias'] = cat
+	# Cargar todas las categorías y autores para los campos de selección
+	contexto['categorias'] = Categoria.objects.all().order_by('nombre')
+	contexto['autores'] = Usuario.objects.all().order_by('username')
 
 	return render(request, 'noticias/listar.html', contexto)
 
