@@ -25,29 +25,29 @@
 		<!-- Filtro por categoría -->
 		<label for="categoria">Categoría:</label>
 		<select name="categoria" id="categoria">
-			<option value="">Todas</option>
+			<option value="">Todas las categorías</option>
 			{% for categoria in categorias %}
 				<option value="{{ categoria.id }}" {% if request.GET.categoria == categoria.id|stringformat:"s" %}selected{% endif %}>
 					{{ categoria.nombre }}
 				</option>
 			{% endfor %}
 		</select>
-		
-		<!-- Filtro por autor -->
-		<label for="autor">Autor:</label>
-		<select name="autor" id="autor">
-        <option value="">Todos</option>
-        {% for autor in autores %}
-            <option value="{{ autor.id }}" {% if request.GET.autor == autor.id|stringformat:"s" %}selected{% endif %}>
-                {{ autor.username }}
-            </option>
-        {% endfor %}
-		</select>
 
 		<!-- Filtro por fecha -->
-		<label for="fecha">Fecha:</label>
-		<input type="date" name="fecha" value="{{ request.GET.fecha }}">
-	
+		<select name="fecha">
+			<option value="">Ordenar por antiguedad</option>
+			<option value="asc">Más antiguas primero</option>
+			<option value="desc">Más recientes primero</option>
+		</select>
+		
+
+		<!-- Filtro por Titulo -->
+		<select name="titulo">
+			<option value="">Ordenar por título</option>
+			<option value="asc">A-Z</option>
+			<option value="desc">Z-A</option>
+		</select>
+
 		<button type="submit">Filtrar</button>
 
 	</form>

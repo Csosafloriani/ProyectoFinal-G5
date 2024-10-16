@@ -17,8 +17,8 @@ def Listar_Noticias(request):
 
 	# Parametros de filtro desde la url
 	id_categoria = request.GET.get('id',None)
-	autor_id = request.GET.get('autor',None)
 	fecha = request.GET.get('fecha',None)
+	titulo = request.GET.get('titulo',None)
 
 	# Consulta base
 	noticias = Noticia.objects.all()
@@ -27,19 +27,23 @@ def Listar_Noticias(request):
 	if id_categoria:
 		noticias = Noticia.objects.filter(categoria_noticia = id_categoria)
 	
-	# Aplicar filtro autor si existe
-	if autor_id:
-		noticias = noticias.filter(autor_id=autor_id)
 	
 	# Aplicar filtro fecha si existe
-	if fecha:
-		noticias = noticias.filter(fecha=fecha)
+	if fecha == 'asc':
+		noticias = noticias.order_by('fecha')
+	elif fecha == 'desc':
+		noticias = noticias.order_by('-fecha')
+	
+	# Aplicar filtro por tirulo
+	if titulo == 'asc':
+		noticias = noticias.order_by('titulo')
+	elif titulo == 'desc':
+		noticias = noticias.order_by('-titulo')
 
 	contexto['noticias'] = noticias
 
 	# Cargar todas las categorías y autores para los campos de selección
 	contexto['categorias'] = Categoria.objects.all().order_by('nombre')
-	contexto['autores'] = Usuario.objects.all().order_by('username')
 
 	return render(request, 'noticias/listar.html', contexto)
 
