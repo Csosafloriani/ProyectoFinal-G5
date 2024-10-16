@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+    <h2>Denunciar Noticia: {{ noticia.titulo }}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Enviar Denuncia</button>
+    </form>
+
+    <a href="{% url 'noticias:detalle' noticia.pk %}">Cancelar</a>
+{% endblock %}
