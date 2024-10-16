@@ -638,3 +638,47 @@ button:hover {
 a:hover {
     text-decoration: underline; /* Subrayar al pasar el cursor */
 }
+
+/* estilos seccion comentarios */
+
+.comentario {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.comentario-texto {
+  font-size: 16px;
+}
+
+.comentario-meta {
+  font-size: 12px; /* Texto pequeño */
+  color: #777; /* Color gris */
+}
+
+.btn-responder, .btn-ver-respuestas {
+  font-size: 12px; /* Botones pequeños */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.btn-responder:hover, .btn-ver-respuestas:hover {
+  background-color: #0056b3;
+}
+
+.respuestas {
+  margin-left: 20px; /* Margen para las respuestas */
+}
+
+.respuesta {
+  border: 1px solid #eee;
+  padding: 10px;
+  background-color: #fff;
+  margin-top: 5px;
+}

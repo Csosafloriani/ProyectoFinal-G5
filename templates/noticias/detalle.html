@@ -6,7 +6,7 @@
 
 {% block contenido %}
 	
-	<h1>ACA VOY A DETALLAR UNA NOTICIA</h1>
+	<h1>detalles de la Noticia</h1>
 
 	<article class="articulo sobre_mi">
 		<section class="seccion_descripcion">
@@ -14,12 +14,12 @@
 					<img class="seccion_descripcion__imagen" src="{{noticia.imagen.url}}" width="500" height="500">
 			</div>
 		</section>
-		<p class="seccion_descripcion__titulo">TITULO: {{noticia.titulo}}</p>
-		<p class="seccion_descripcion__parrafo"><a href="">AUTOR: {{noticia.autor.username}}</a></p> <!--capas agrege url para filtrar las noticias del autor-->
-		<p class="seccion_descripcion__parrafo">FECHA: {{noticia.fecha}}</p>
-		<p class="seccion_descripcion__parrafo">CATEGORIA: {{noticia.categoria_noticia}}</p>
+		<p class="seccion_descripcion__titulo">Titulo: {{noticia.titulo}}</p>
+		<p class="seccion_descripcion__parrafo"><a href="">Autor: {{noticia.autor.username}}</a></p> <!--capas agrege url para filtrar las noticias del autor-->
+		<p class="seccion_descripcion__parrafo">Creado el: {{noticia.fecha}}</p>
+		<p class="seccion_descripcion__parrafo">Categoría: {{noticia.categoria_noticia}}</p>
 		<div class="seccion_descripcion__info scroll scroll_fino scroll_gris">
-			<p class="seccion_descripcion__parrafo">CUERPO: {{noticia.cuerpo}}</p>
+			<p class="seccion_descripcion__parrafo">{{noticia.cuerpo}}</p>
 		</div>
 	
 		<br><br><br>
@@ -53,49 +53,76 @@
 		<!-- MOSTAR COMENTARIOS -->
 		<h3>COMENTARIOS</h3>
 		{% for com in comentarios %}
-			<strong>FECHA:{{com.fecha}}</strong><br>
-			<strong>USUARIO:{{com.usuario}}</strong><br>
-			<p>{{com.texto}}</p>
-
-			<!--Mostrar boton para eliminar el comentario solo si es autor o admin-->
-			{% if request.user == com.usuario or request.user.is_staff %}
-				<form method="POST" action="{% url 'comentarios:eliminar' com.pk %}">
-					{% csrf_token %}
-					<button type="submit">Eliminar comentario</button>
-				</form>
-			{% endif %}
-			
-			<!--Responder comentario solo si está registrado-->
-			{% if request.user.is_authenticated %}
-				<button type="button" onclick="document.getElementById('respuesta-{{com.pk}}').style.display='block';">Responder</button>
-				<div id="respuesta-{{com.pk}}" style="display:none;">
-					<form method="POST" action="{% url 'comentarios:responder' noticia.id com.pk %}">
-						{% csrf_token %}
-						{{ form.as_p}}
-						<input type="submit" value="Responder">
-					</form>
-				</div>
-			{% endif %}
-
-			<!--Mostrar respuestas-->
-			{% for resp in com.respuestas.all %}
-				<div style="margin-left: 40px;">
-					<strong>FECHA:{{resp.fecha}}</strong><br>
-					<strong>USUARIO:{{resp.usuario}}</strong><br>
-					<p>{{resp.texto}}</p>
-
-					<!--Eliminar respuesta si es autor o admin-->
-					{% if user == resp.usuario or request.user.is_staff %}
-						<form method="POST" action="{% url 'comentarios:eliminar' resp.pk %}">
+			{% if not com.parent %}
+				<div class="comentario">
+					<p class="comentario_texto">{{com.texto}}</p>
+					<p class="comentario-meta">
+						<small>Fecha: {{com.fecha}} | Usuario: {{com.usuario}}</small>
+					</p>
+				
+					<!--Mostrar boton para eliminar el comentario solo si es autor o admin-->
+					{% if request.user == com.usuario or request.user.is_staff %}
+						<form method="POST" action="{% url 'comentarios:eliminar' com.pk %}" style="display: inline;">
 							{% csrf_token %}
-							<button type="submit">Eliminar respuesta</button>
+							<button type="submit">Eliminar comentario</button>
 						</form>
 					{% endif %}
-				</div>
-			{% endfor %}
+				
+					<!--Responder comentario solo si está registrado-->
+					{% if request.user.is_authenticated %}
+						<button type="button" class="btn-responder" onclick="document.getElementById('respuesta-{{com.pk}}').style.display='block';">Responder</button>
+						<div id="respuesta-{{com.pk}}" style="display:none;">
+							<form method="POST" action="{% url 'comentarios:responder' noticia.id com.pk %}">
+								{% csrf_token %}
+								{{ form.as_p}}
+								<input type="submit" value="Responder">
+							</form>
+						</div>
+					{% endif %}
 
-			<br>
+					<!--Mostrar respuestas-->
+					{% if com.respuestas.all %}
+						<button type="button" class="btn-ver-respuestas" onclick="toggleRespuestas('{{ com.pk }}')" >Ver respuestas</button>
+						<div id="respuestas-{{ com.pk }}" class="respuestas" style="display: none;">
+							{% for resp in com.respuestas.all %}
+								<div class="respuesta">
+									<p class="respuesta-texto">{{resp.texto}}</p>
+									<p class="respuesta-meta">
+										<small>Fecha: {{resp.fecha}} | Usuario: {{resp.usuario}}</small>
+									</p>
+									<!--Eliminar respuesta si es autor o admin-->
+									{% if user == resp.usuario or request.user.is_staff %}
+										<form method="POST" action="{% url 'comentarios:eliminar' resp.pk %}" style="display: inline;">
+											{% csrf_token %}
+											<button type="submit">Eliminar respuesta</button>
+										</form>
+									{% endif %}
+								</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+
+					<br>
+				</div>
+			{% endif %}
 		{% endfor %}
+		
+		<script>
+			function toggleRespuestas(comentarioId) {
+				const respuestasDiv = document.getElementById('respuestas-' + comentarioId);
+				if (respuestasDiv) {
+					if (respuestasDiv.style.display === "none" || respuestasDiv.style.display === "" ) {
+						respuestasDiv.style.display = "block";
+					} else {
+						respuestasDiv.style.display = "none";
+					}
+				} else {
+					console.error('No se encontró el div con id respuestas-' + comentarioId);
+				}
+				
+			}
+		</script>
+			
 		<a href="{% url 'noticias:listar' %}">VOLVER</a>
 {% endblock contenido %}
 

@@ -5,3 +5,6 @@ class ComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario
         fields = ['texto'] #El usuario solo puede ingresar texto
+        labels = {
+            'texto': 'Escribe tu comentario aquí',
+        }
