@@ -3,6 +3,7 @@
     --texto-primario:#dddddd;/*#dddddd*/
     --texto-secundario: #d1d1d1; /*d1d1d1*/
     --texto-terciario: rgb(0, 255, 221); /*fonfo de las nosotros*/
+    --texto-cuarto: #000; /*agregue este color*/
     --fondo-primario: #0f0921;
     --fondo-primario-transparente: #0f092180;
     --fondo-secundario: #0a0c13;
@@ -108,6 +109,103 @@
 .submenu{
 	font-size: 18px	;
 }
+
+
+
+/*estoy agregando*/
+.comentario_contenedor{
+  background-color: var(--color-primario-apagado);
+  margin: 60px auto 15px;
+  width: 300px auto; /*este no funciona*/
+  max-width: 460px;
+  border:solid 1px #6f6f6f ;
+  padding: 10px;
+  border-radius: 10px;
+  
+
+}
+
+.form{ 
+  /*justify-content: center; /*center*/
+  background-color: var(--color-primario-apagado);
+  border-radius: 3px;
+  padding: 5px;
+  margin: auto;
+  width: 400px;
+  
+}
+/*ver luego para display*/
+.field{
+  position: absolute; 
+  display: flex;
+  height: auto;
+  width: 82% ; 
+  background-color: var(--color-secundario); 
+  /* flex-direction: column; los elementos se van a posicionar en columna */
+  justify-content: space-around;
+  animation: cambiar-color 5s infinite;
+    
+
+}
+
+  /* .li ::marker{
+  background-color: #001aff;
+  font-size: 10% ;
+  color: #50c782;
+} */
+
+
+
+ /* principal */
+ .principal {
+  background-color: var(--fondo-primario); /*color de fondo*/
+}
+
+/* presentacion */ /*seccion sobre mi, etc*/
+  .presentacion { 
+  width: 100%;/*el contenedor general va a ocupar todo el ancho de la pantalla*/
+  height: 100vh; /*vertical 100%*/
+  /*background-image: url(""); /*imagen del fondo*/
+  background-size: cover; /*el tamaño de la img va a cubrir toda la pantalla*/
+  background-position: center; /*posicion va a estar centrada*/
+  }
+  .presentacion__contenedor_info {
+  width: 100%; /*ancho total*/
+  height: 100%; /*altura total*/
+  padding: 10%;
+  display: flex;
+  flex-direction: column; /*los elementos se van a posicionar en columna*/
+  justify-content: center;/*el contenido va a estar centrado, en su eje vertical*/
+  align-items: flex-start; /*en su eje horizontal va a alinearse al comienzo*/
+  gap: 3rem; /*la separacion de los elementos es de 3 rem*/
+  background: linear-gradient(
+    90deg,
+    var(--fondo-primario-transparente) 20%,
+    transparent 40%
+  );/*para el fondo se uso el backgroud*/
+  }
+  .presentacion__contenedor_botones {
+  width: 420px; /*ancho*/
+  display: flex;
+  justify-content: center; /*contenido centrado*/
+  gap: 1rem;
+  }
+
+  .presentacion__titulo {
+  font-size: var(--presentacion-titulo-tamanio); /*definicion tamaño de la funte*/
+  color: var(--color-primario); /*color*/
+  text-shadow: 2px 2px 2px var(--fondo-secundario); /*sombra*/
+  animation: cambiar-color 8s linear infinite alternate; 
+  }
+
+  .presentacion__parrafo {
+  max-width: 460px; /*el ancho maximo que va a ocupar el parrafo*/
+  font-size: var(--presentacion-descripcion-tamanio);
+  color: var(--texto-secundario);
+  text-wrap: pretty; /*es por si el texto debe bajar y acomodarse*/
+  }
+
+
 
  /* articulo inclui de aqui*/
  .articulo {  
@@ -269,6 +367,7 @@
     align-items: center;
   }
   .pie_de_pagina__titulo_columna {
+    color: var(--texto-primario); /*agregue blanco titulo abajo*/
     width: 100%;
     font-size: var(--texto-tamanio);
     font-weight: var(--texto-peso-regular);
@@ -346,6 +445,7 @@
     color: var(--fondo-primario);
     border-radius: 4px;
     transition: background-color 0.3s ease, color 0.3s ease; 
+    border:1px solid black; /*le agregue*/
   }
   .boton:hover,
   .boton:focus {
@@ -354,7 +454,7 @@
   } 
   .boton_oscuro {
     color: var(--texto-primario);
-    background-color: var(--color-primario);
+    background-color: var(--color-secundario); /*cambie de color*/
   }
   .boton_oscuro:hover,
   .boton_oscuro:focus {
