@@ -5,6 +5,12 @@
 	<title>MI WEB| {% block titulo %}{% endblock titulo %}</title>
 
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<link rel="preconnect" href="https://fonts.googleapis.com" /> <!--la fuente de google +3 de abajo-->
+    	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    	<link
+     	 href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+     	 rel="stylesheet"
+   	 />
 </head>
 
 
@@ -49,19 +55,7 @@
 
 
 
-	<div class="centrar"> <!--ELIMINAR TODOO-->
-		<img src="{% static 'img/logo.png' %}" width="50px" height="50px">
-		<a href="{% url 'home' %}">IR AL HOME</a>
-		<a href="{% url 'nosotros' %}">IR A NOSOTROS</a>
-		<a href="{% url 'noticias:listar' %}">IR A NOTICIAS</a>
 
-		{% if user.is_authenticated %}
-			<strong>Hola {{ user.username }}</strong>
-			<a href="{% url 'logout' %}">LOGOUT</a>
-		{% else %}
-			<a href="{% url 'login' %}">LOGIN</a>
-			<a href="{% url 'usuarios:registro' %}">Registrar</a>
-		{% endif %}
 		
 		
 
@@ -90,7 +84,7 @@
 			<li class="enlaces__item"> <!--GITHUB-->
 			<a
 				class="enlaces__enlace enlaces__enlace_footer"
-				href="https://github.com/MayraPerez15"
+				href="https://github.com/Csosafloriani/ProyectoFinal-G5.git" <!--cambie este link-->
 				target="_blank"
 				><img
 				class="enlaces__icono"
@@ -102,7 +96,7 @@
 			<li class="enlaces__item"> <!--YOUTUBE-->
 			<a
 				class="enlaces__enlace enlaces__enlace_footer"
-				href="https://www.instagram.com/mayraperez41/"
+				href="https://www.instagram.com/mayraperez41/" <!--cambiar el link de youtube-->
 				target="_blank"
 			>
 				<img
@@ -116,7 +110,7 @@
 			<li class="enlaces__item"> <!--INFORMATORIO-->
 			<a
 				class="enlaces__enlace enlaces__enlace_footer"
-				href="https://twitter.com/perrezmayra"
+				href="https://campus-informatorio.chaco.gob.ar/" <!--cambie este link-->
 				target="_blank"
 				><img
 				class="enlaces__icono"
@@ -135,8 +129,8 @@
 				class="enlaces__enlace enlaces__enlace_footer"
 				href="mailto:mayranoemiperez2021@gmail.com?subject=Consulta%20desde%20la%20plataforma%20web"
 				target="_blank"
-				>Mail: mayranoemiperez2021@gmail.com</a
-			>
+				>Mail: SYTEWEB@gmail.com 
+			</a> <!--cambie nombre syteweb-->
 			</li>
 		</li>
 		<li class="enlaces__item">
