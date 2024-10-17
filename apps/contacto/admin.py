@@ -6,6 +6,7 @@ from .models import Contacto
 
 class ContactoAdmin(admin.ModelAdmin):
     list_display=('id','nombre_apellido', 'email', 'aunto', 'fecha',)
+    search_fields=['id','nombre_apellido', 'email', 'asunto', 'fecha',]# busca por todo
 
 
-admin.site.register(Contacto)
+admin.site.register(Contacto, ContactoAdmin)
