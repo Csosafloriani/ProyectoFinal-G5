@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}CONTACTO{% endblock titulo %}
+
+{% block contenido %}
+
+<center>
+    <form method="POST" style="margin:100px" >  <!--action="" enctype="multipart/form-data" DELETE POR POST-->   
+		<h1>Envíanos un mensaje</h1>
+        <h2>Si deseas ponerte en contacto con nosotros, completa el formulario y te responderemos lo antes posible. Gracias!</h6>
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <table>
+            {% csrf_token %}
+            {{form}}
+        </table>
+        <input type="submit" value="enviar">
+        <a href="{% url 'home' %}">no, inicio</a>
+
+	</form>
+</center>
+
+	
+
+	
+
+{% endblock contenido%}

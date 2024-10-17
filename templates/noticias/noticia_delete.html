@@ -10,7 +10,7 @@
 	<form method="POST" action="{% url 'noticias:noticia_delete' noticia.id %}"  >  <!--action="" enctype="multipart/form-data" DELETE POR POST-->   
 		{% csrf_token %}
 		
-		<button type="submit" accion="" >si, eliminar</button>
+		<button type="submit" action="" >si, eliminar</button>
         <a href="{% url 'noticias:listar' %}">no, inicio</a>
 
 	</form>

@@ -4,9 +4,12 @@
 
 .contenedor{
 	display:flex;
-	flex-direction: column;
+	flex-direction: row;
+	justify-content:space-between;
+	align-items:flex-start;
+	position: relative;
 	height:800px;
-	width:1320px;;
+	width:1320px;
 	text-align:start;
 	flex-wrap:wrap;
 	background-color: bisque;
@@ -23,7 +26,11 @@
 .articulos {
     column-count: 1;
     flex-wrap: wrap;
+	position:absolute;
+	top:0;
+	left:0;
 	width:70%;
+	flex-basis:70%;
 	margin:1px left;
 	padding:5px;
 	border:0.5px solid#ddd;
@@ -40,11 +47,12 @@
 	display:flex;
 	background-color:beige;
     position:absolute;
-	top:90px;
-	right:20px;
+	top:0;
+	right:0;
 	padding:20px;
 	border: 1px solid#ddd;
 	width: 25%;
+	flex-basis:30%;
 	float:right;
 	flex-wrap: wrap;
     height:auto;
@@ -95,11 +103,9 @@
 
 	flex-direction: column;
 	justify-content: center;
+}
+.seccion_descripcion{
 	
-
+	border: 0.5px solid#ddd;
 	
-
-
-	 
-
 }

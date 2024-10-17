@@ -30,7 +30,7 @@
 
 		
 		<br>
-		<form method="POST" action="{% url 'noticias:comentar' %}">{% csrf_token %}
+		<form method="POST"  action="{% url 'noticias:comentar' %}">{% csrf_token %}
 			<textarea name="comentario" maxlength="1500"> </textarea>
 			<input type="text" name="id_noticia" value="{{noticia.pk}}" hidden=""> 
 			<input type="submit" value="GUARDAR">
@@ -41,12 +41,14 @@
 		{% if user == com.usuario %}
 	
 		<div>
-		<a href="">BORRAR</a> 
-	</div>
+			<a href="">BORRAR</a> 
+		</div>
+	
+			<div>
+				<a href="">EDITAR</a>
+			</div> <!--aqui necesita un URL de un template delete de comentarios-->
 
-		<div>
-			<a href="">EDITAR</a>
-		</div> <!--aqui necesita un URL de un template delete de comentarios-->
+
 	{% endif %}
 		<strong>FECHA:{{com.fecha}}</strong><br>
 		<strong>USUARIO:{{com.usuario}}</strong><br>

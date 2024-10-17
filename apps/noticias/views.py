@@ -8,6 +8,8 @@ from django.urls import reverse_lazy
 
 from .forms import NoticiaForm
 
+from .forms import ComentarioForm
+
 
 
 @login_required
@@ -106,4 +108,35 @@ def Noticia_delete(request, id_noticia):
 		return redirect('noticias:listar')
 	return render(request, "noticias/noticia_delete.html", {'noticia': noticia})
 
+
+@login_required
+def Comentario_editar(request, id_comentario):
+	comentario = get_object_or_404(Comentario, id=id_comentario)
+	if request.user==comentario.autor:
+		if request.method == "POST":
+			form= ComentarioForm(request.POST, request.FILES, instance=comentario)
+			if form.is_valid():
+				form.save()
+			return redirect('noticias:comentario_editar', id_comentario)
+	else:
+		form =ComentarioForm(instance=comentario)
+	return render(request, 'noticias/comentario_editar.html', {'form': form, 'noticia': noticia})
+
+
+@login_required
+def Comentario_delete(request, id_noticia, id_comentario):
+	comentario = get_object_or_404(Comentario, id_comentario)
+	if request.user== Comentario.autor:
+		if request.method == "POST":  
+			Comentario.delete() 
+		return redirect('noticias:detalle', id_noticia)
+	return render(request, "noticias/comentario_delete.html", {'comentario': comentario})
+  
+ 
+ 
+ 
+ 
+ 
+
+ 
 

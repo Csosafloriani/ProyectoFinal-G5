@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+
+{% block contenido %}
+    <h2>Usted desea editar su comentario: {{comentario.noticia}}?</h2>
+
+   
+    <form method="post" action="{% url 'noticias:editar_comentario' noticia.id comentario.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>Editar</p>
+        {{form.as_p}} 
+
+        <button type="submit" action="{% url 'noticias:detalle' noticia.id %}" >si, Guardar </button>
+    
+
+    
+        <a href="{% url 'noticias:listar' %}">no, volver</a>
+    </form>
+
+  
+{% endblock %}

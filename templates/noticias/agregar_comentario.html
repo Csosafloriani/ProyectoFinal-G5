@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+{% block titulo %}Agregar Comentario{% endblock titulo %}
+
+{% block contenido %}
+    <h1>Agregar Comentario</h1>
+
+    <form method="POST"  enctype="multipart/form-data">
+        {% csrf_token %}
+        <textarea name="texto" placeholder="Escribe tu comentario" maxlength="1500"></textarea><br>
+        <input type="submit" value="Agregar comentario">
+    </form>
+
+    <a href="{% url 'noticias:detalle' noticia.id %}">VOLVER</a>
+{% endblock contenido %}

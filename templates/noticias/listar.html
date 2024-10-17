@@ -14,11 +14,8 @@
 		{% endfor %}
     </div>
 
-
-	<div class="cargar_noticia">
-		<a href="{% url 'noticias:cargar_noticia' %}">Agrega noticias</a>
-	</div>
-
+   
+	
 
 	<h1> NOTICIAS</h1>
 	
@@ -36,7 +33,8 @@
 					<p class="seccion_descripcion__parrafo">CATEGORIA: {{noti.categoria_noticia}}</p>
 					<p class="seccion_descripcion__parrafo">AUTOR: {{noti.autor}}</p>
 					<p class="seccion_descripcion__parrafo">CUERPO: {{noti.cuerpo}}</p>
-					<a class="boton"  href="{% url 'noticias:detalle' noti.pk %}">Detalle</a>
+					<a class="boton"  href="{% url 'noticias:detalle' noti.pk %}">Detalle</a><br>
+					<a class="boton"  href="{% url 'noticias:cargar_noticia' %}"> Carga una noticia </a>
 					<br>
 					<br>
 				</div>

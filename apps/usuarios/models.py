@@ -10,4 +10,5 @@ class Usuario(AbstractUser):
 	)
 
 
-rol = models.CharField(max_length=20, choices='ROLES', default='registrado') 
+rol = models.CharField(max_length=20, choices='ROLES', default='registrado')
+

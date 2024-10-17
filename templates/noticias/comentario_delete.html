@@ -1,0 +1,22 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}BORRAR COMENTARIO{% endblock titulo %}
+
+{% block contenido %}
+
+<h2>Usted desea eliminar el comentario: {{ comentario.noticia }} ?</h2>
+
+	<form method="POST" action="{% url 'noticias:comentario_delete' comentario.id %}" 
+    enctype="multipart/form-data">  <!--action="" enctype="multipart/form-data" DELETE POR POST-->   
+		{% csrf_token %}
+		
+		<button type="submit" accion="" >si, eliminar</button>
+        <a href="{% url 'noticias:detalle' noticia.id %}">no, volver</a>
+
+	</form>
+
+	
+
+{% endblock contenido%}

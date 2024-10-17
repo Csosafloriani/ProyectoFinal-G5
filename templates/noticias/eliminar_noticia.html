@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}NOTICIAS{% endblock title %}
+
+
+{% block contenido %}
+    <h2>Eliminar:{{noticia.titulo}} </h2>
+    <form method="post" action="{% url 'noticias:eliminar' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>Eliminar</p>
+        {{ form.as_p}} 
+
+        <button type="submit">Eliminar</button>
+    </form>
+        <a href="{% url 'noticias:listar' %}">VOLVER</a>
+
+    {% endblock %}
