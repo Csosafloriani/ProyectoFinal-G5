@@ -165,7 +165,7 @@
   .presentacion { 
   width: 100%;/*el contenedor general va a ocupar todo el ancho de la pantalla*/
   height: 100vh; /*vertical 100%*/
-  /*background-image: url(""); /*imagen del fondo*/
+  background-image: url('../img/Home.png'); /*imagen del fondo //descomentado*/
   background-size: cover; /*el tamaño de la img va a cubrir toda la pantalla*/
   background-position: center; /*posicion va a estar centrada*/
   }
@@ -328,6 +328,14 @@
   color: var(--texto-secundario);
   text-wrap: pretty;
   }
+  .seccion_descripcion__parrafo1 {
+  text-align: justify;
+  font-size: var(--sub-titulo-tamanio);
+  font-weight: var(--texto-peso-grueso);
+  color: var(--color-primario);
+  text-shadow: 2px 2px 2px var(--fondo-secundario);
+  text-wrap: pretty;
+  } /*agregue*/
 
 
 
