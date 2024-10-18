@@ -5,31 +5,117 @@
 
 
 {% block contenido %}
-	<h1>ACA VOY A DETALLAR UNA NOTICIA</h1>
-		<img src="{{noticia.imagen.url}}" width="500" height="500">
-		
-		<p>TITULO: {{noticia.titulo}}</p>
-		
-		<p>FECHA: {{noticia.fecha}}</p>
-		<p>CATEGORIA: {{noticia.categoria_noticia}}</p>
-		<p>CUERPO: {{noticia.cuerpo}}</p>
-		<br><br>
-		<br>
-		<form method="POST" action="{% url 'noticias:comentar' %}">{% csrf_token %}
-			<textarea name="comentario" maxlength="1500"> </textarea>
-			<input type="text" name="id_noticia" value="{{noticia.pk}}" hidden=""> 
-			<input type="submit" value="GUARDAR">
-		</form>
+
+	<article class="articulo sobre_mi">
+		<h1 class="presentacion__titulo" >NOTICIA</h1>
+		<p class="presentacion__titulo">{{noticia.titulo}}</p>
+		<section class="seccion_descripcion">
+			<div class="seccion_descripcion__porta_retrato">
+					<img class="seccion_descripcion__imagen" src="{{noticia.imagen.url}}" width="500" height="500">
+			</div>
+		</section>
+		<p class="seccion_descripcion__parrafo"><a href="">AUTOR: {{noticia.autor.username}}</a></p> <!--capas agrege url para filtrar las noticias del autor-->
+		<p class="seccion_descripcion__parrafo">FECHA: {{noticia.fecha}}</p>
+		<p class="seccion_descripcion__parrafo">CATEGORIA: {{noticia.categoria_noticia}}</p>
+		<div class="seccion_descripcion__info scroll scroll_fino scroll_gris">
+			<p class="seccion_descripcion__parrafo">CUERPO: {{noticia.cuerpo}}</p>
+		</div>
+	
 		<br><br><br>
-		<h3>COMENTARIOS</h3>
-		{% for com in comentarios %}
-		{% if user == com.usuario %}
-			<a href="">borrar</a>
+		<!-- MOSTRAR LOS BOTONES DE EDITAR/ELIMINAR SOLO SI ES EL AUTOR O ADMIN-->
+		<div class="presentacion__contenedor_botones">
+			{% if request.user == noticia.autor or request.user.is_staff %}
+				<a class="boton" href="{% url 'noticias:editar' noticia.pk %}">Editar Noticia</a>
+				<a class="boton" href="{% url 'noticias:eliminar' noticia.pk %}">Eliminar Noticia</a>
+			{% endif %}
+
+			<!-- Mostrar boton denunciar solo si es un usuario distinto al autor o al admin-->
+			{% if request.user.is_authenticated and request.user != noticia.autor and not request.user.is_staff  %}
+			<a href="{% url 'noticias:denunciar' noticia.pk %}" class="boton">Denunciar</a>
+			{% endif %}
+		
+		</div>
+		<br>
+	</article>
+
+	<!-- AGREGAR COMENTARIO -->
+	<!-- SOLO SI ESTÁ REGISTRADO-->
+	<div class="articulo__contenedor_descripciones">
+		{% if request.user.is_authenticated %}
+			<form class="form" method="POST" action="{% url 'comentarios:agregar_comentario' noticia.id %}">
+			<div class="seccion_descripcion" >
+				{% csrf_token %}
+				<h1 >COMENTAR: {{ form.texto}}</h1>
+				<div class="presentacion__contenedor_botones"> </div> <!--dejale así-->
+				<input class="boton" type="submit" value="Comentar">
+				<a class="boton" href="{% url 'noticias:listar' %}">VOLVER</a>
+			</div>
+			</form>
+		
+		{% else %}
+			<p>Inicia sesión para comentar</p>
 		{% endif %}
-		<strong>FECHA:{{com.fecha}}</strong><br>
-		<strong>USUARIO:{{com.usuario}}</strong><br>
-		<p>{{com.texto}}</p>
+	</div>
+
+	<aside class="comentario_contenedor">
+		<!-- MOSTAR COMENTARIOS -->
+		<div class="seccion_descripcion	">
+			<h3>COMENTARIOS</h3>
+			<br>
+		{% for com in comentarios %}
+			<ul class="enlaces enlaces_vertical">
+					<div class="seccion_descripcion__parrafo" >
+						<strong class="field">USUARIO:{{com.usuario}}</strong><br>
+						<strong class="">FECHA:{{com.fecha}}</strong><br>
+						<p class="seccion_descripcion__parrafo">{{com.texto}}</p>
+
+						<!--Mostrar boton para eliminar el comentario solo si es autor o admin-->
+						{% if request.user == com.usuario or request.user.is_staff %}
+							<form method="POST" action="{% url 'comentarios:eliminar' com.pk %}">
+								{% csrf_token %}
+								<button class="boton_oscuro" type="submit">Eliminar comentario</button>
+							</form>
+						{% endif %}
+			
+						<!--Responder comentario solo si está registrado-->
+						{% if request.user.is_authenticated %}
+							<button class="boton_oscuro" type="button" onclick="document.getElementById('respuesta-{{com.pk}}').style.display='block';">Responder</button>
+									<br>
+							<div class="enlaces__item" id="respuesta-{{com.pk}}" style="display:none;">
+								<form class="" method="POST" action="{% url 'comentarios:responder' noticia.id com.pk %}">
+									{% csrf_token %}
+									{{ form.as_p}}
+									<input class="boton_oscuro" type="submit" value="Responder">
+								</form>
+							</div>
+						{% endif %}
+					</div>
+
+			<!--Mostrar respuestas-->
+			{% for resp in com.respuestas.all %}
+				<li class="seccion_descripcion__parrafo" style="margin-left: 40px;">
+
+					<strong class="">RESPUESTA:{{resp.usuario}}</strong><br>
+					<strong>FECHA:{{resp.fecha}}</strong><br>
+					<p class="seccion_descripcion__parrafo">{{resp.texto}}</p>
+
+					<!--Eliminar respuesta si es autor o admin-->
+					{% if user == resp.usuario or request.user.is_staff %}
+						<form  method="POST" action="{% url 'comentarios:eliminar' resp.pk %}">
+							{% csrf_token %}
+							<button class="boton_oscuro" type="submit">Eliminar respuesta</button>
+						</form>
+					{% endif %}
+				</li>
+			{% endfor %}
+			</ul>
+			<br>
 		{% endfor %}
-		<a href="{% url 'noticias:listar' %}">VOLVER</a>
+			<div class="seccion_descripcion"> <!--boton volver-->
+				<a class="boton" href="{% url 'noticias:listar' %}">VOLVER</a>
+			</div>
+	
+		</div>
+	</aside>
 {% endblock contenido %}
 

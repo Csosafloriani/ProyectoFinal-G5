@@ -5,6 +5,40 @@
 
 
 {% block contenido %}
-	<h2>HOLA SOY EL HOME CON UN CAMBIO</h2>
+	{% if request.user.is_authenticated %} <!--agregue request-->
+	<h1 class="presentacion__titulo">
+		Bienvenido: {{user.username | upper }}	
+	</h1>
+	{% endif %}
+
+	<main class="principal">
+		<section class="presentacion">
+			<div  class="presentacion__contenedor_info">
+				<h1 class="articulo__titulo">Nuestro Blog: La revolución del mundo actual  </h1>
+					
+				<div class="seccion_descripcion__info scroll scroll_fino scroll_gris">
+					<h3 class="navegacion__titulo">"La inteligencia artificial"</h3>
+					<p class="seccion_descripcion__parrafo1">En nuestro Blog abordamos cómo la Inteligencia Artificial (IA) a través de las innovaciones
+						tecnológicas <br> nos están cambiando las formas de vivir en la actualidad. 
+					</p>
+
+					<p class="seccion_descripcion__parrafo1">Podemos darnos cuenta  del surgimiento de nuevas formas
+						de comunicarnos, estudiar y trabajar. 
+					</p>
+
+					<p class="seccion_descripcion__parrafo1">Te proponemos  interiorizarte de esta realidad
+						que cada día nos sorprende más y más.
+					</p>
+
+					<p class="seccion_descripcion__parrafo1">Es importante estar informado y reflexionar
+						sobre sus implicaciones para prepararnos
+						para el futuro.
+					</p>
+				</div>
+						
+			</div>
+		</section>
+	</main>
+	
 {% endblock contenido %}
 

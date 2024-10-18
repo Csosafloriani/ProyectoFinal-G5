@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}CONTACTO{% endblock titulo %}
+
+{% block contenido %}
+
+<section class="" id="">
+        <div class="articulo__contenedor_descripciones">
+            <form class="form" method="POST"  >  <!--style="margin:200px" action="" enctype="multipart/form-data" DELETE POR POST-->  
+                <div class="seccion_descripcion">
+                    
+                    <h1 class="presentacion__titulo">Envíanos un mensaje</h1>
+                    <h2 class="presentacion__parrafo">Si deseas ponerte en contacto con nosotros, completa el formulario y te responderemos lo antes posible. Gracias.</h2>
+                            
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="message {{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    <p>
+                    {{ Contacto.mensaje }}
+                    </p>
+    
+                    <div class=""></div>
+                        {% csrf_token %}
+                        <p class="">Nombre:{{form.nombre_apellido}} </p>
+                        <p class="">Email:{{form.email}}</p>
+                        <p class="">Asunto: {{form.asunto}}</p>
+                        <p class="">Mensaje: {{form.mensaje}}</p>
+                    
+                        <input class="boton" type="submit" value="ENVIAR">
+                        <a class="boton" target="_blank" role="button" href="{% url 'noticias:listar' %}">INICIO</a>
+                    </div>
+                </div> 
+            </form>
+        </div> 
+</section>
+
+	
+
+	
+
+{% endblock contenido%}
