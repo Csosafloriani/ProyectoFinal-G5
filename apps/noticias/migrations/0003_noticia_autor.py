@@ -3,7 +3,24 @@
 import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
+from django.db.utils import OperationalError
 
+def add_autor_field(apps, schema_editor):
+    Noticia = apps.get_model('noticias', 'Noticia')
+    try:
+        # Intenta agregar el campo 'autor'
+        schema_editor.add_field(
+            Noticia,
+            models.ForeignKey(
+                settings.AUTH_USER_MODEL,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                name='autor'
+            )
+        )
+    except OperationalError:
+        # Si la columna ya existe, no hacer nada
+        pass
 
 class Migration(migrations.Migration):
 
@@ -13,9 +30,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='noticia',
-            name='autor',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
-        ),
+        migrations.RunPython(add_autor_field),
     ]
