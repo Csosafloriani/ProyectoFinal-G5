@@ -6,51 +6,46 @@
 
 {% block contenido %}
 
-	<!--Crear nueva noticia-->
-	{% if request.user.is_authenticated or request.user.is_staff %}
-	<div class="cargar_noticia">
-		<a href="{% url 'noticias:crear' %}">Crear nueva Noticia</a>
-	</div>
-	{% endif %}
+	<form class="form" method="GET">
+		<div class="seccion_descripcion">
+			<!-- Filtro por categoría -->
+			<label class="presentacion__parrafo" for="categoria">Filtrar Noticia:</label>
+			<select class="presentacion__parrafo" name="categoria" id="categoria">
+				<option value="">Todas las categorías</option>
+				{% for categoria in categorias %}
+					<option value="{{ categoria.id }}" {% if request.GET.categoria == categoria.id|stringformat:"s" %}selected{% endif %}>
+						{{ categoria.nombre }}
+					</option>
+				{% endfor %}
+			</select>
 
-	<div class="submenu">
-		
-	</div>
-	<br>
+			<!-- Filtro por fecha -->
+			<select class="presentacion__parrafo" name="fecha">
+				<option value="">Ordenar por antiguedad</option>
+				<option value="asc">Más antiguas primero</option>
+				<option value="desc">Más recientes primero</option>
+			</select>
+			
 
+			<!-- Filtro por Titulo -->
+			<select class="presentacion__parrafo" name="titulo">
+				<option value="">Ordenar por título</option>
+				<option value="asc">A-Z</option>
+				<option value="desc">Z-A</option>
+			</select>
 
-	<h1>Noticias</h1>
+			<button class="boton" type="submit">Filtrar</button>
 
-	<form method="GET">
-		<!-- Filtro por categoría -->
-		<label for="categoria">Categoría:</label>
-		<select name="categoria" id="categoria">
-			<option value="">Todas las categorías</option>
-			{% for categoria in categorias %}
-				<option value="{{ categoria.id }}" {% if request.GET.categoria == categoria.id|stringformat:"s" %}selected{% endif %}>
-					{{ categoria.nombre }}
-				</option>
-			{% endfor %}
-		</select>
-
-		<!-- Filtro por fecha -->
-		<select name="fecha">
-			<option value="">Ordenar por antiguedad</option>
-			<option value="asc">Más antiguas primero</option>
-			<option value="desc">Más recientes primero</option>
-		</select>
-		
-
-		<!-- Filtro por Titulo -->
-		<select name="titulo">
-			<option value="">Ordenar por título</option>
-			<option value="asc">A-Z</option>
-			<option value="desc">Z-A</option>
-		</select>
-
-		<button type="submit">Filtrar</button>
-
+			<!--Crear nueva noticia-->
+			{% if request.user.is_authenticated or request.user.is_staff %}
+			<div class="">
+				<a class="boton" href="{% url 'noticias:crear' %}">Crear Noticia</a>
+			</div>
+			{% endif %}
+		</div>	
 	</form>
+
+	<h1 class="presentacion__titulo">Noticias</h1>
 
 	<div class="contenedor_tarjetas_grid">
 		{% for noti in noticias %}
