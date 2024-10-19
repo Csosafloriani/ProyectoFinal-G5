@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MI WEB| {% block titulo %}{% endblock titulo %}</title>
+	<title>■ Blog IA  {% block titulo %}{% endblock titulo %}</title>
 
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 	<link rel="preconnect" href="https://fonts.googleapis.com" /> <!--la fuente de google +3 de abajo-->
@@ -18,34 +18,34 @@
 	<header class="encabezado"> <!--para agregar estilos más adelante-->
 		<nav class="navegacion"> <!--una etiqueta con la descripcion navegacion-->
 			<ul class="enlaces">
-				<a class="enlaces__icono" href=""><!--AQUI VA EL LINK DE EL ICONO-->
+				<a class="enlaces__icono" href="https://campus-informatorio.chaco.gob.ar"><!--AQUI VA EL LINK DE EL ICONO-->
 					<img class="navegacion__enlace1" src="{% static 'img/logo1.ico' %}" width="50px" height="50px">
 				</a>
-				<a class="navegacion__enlace1" href="#presentacion"> <!--una etiqueta a con una class y una referencia href-->
+				<a class="navegacion__enlace1" href="https://campus-informatorio.chaco.gob.ar"> <!--una etiqueta a con una class y una referencia href-->
 					<h1 class="enlaces__enlace1">INFORMATORIO</h1> <!--un titulo-->
 		  		</a>
 			</ul>
 		  	<ul class="enlaces"> <!--una lista de items-->
 			<li class="enlaces__item">
-			  <a class="enlaces__enlace1" href="{% url 'home' %}"> HOME </a> <!--el items presentacion-->
+			  <a class="enlaces__enlace1" href="{% url 'home' %}"> Inicio </a> <!--el items presentacion-->
 			</li>
 			<li class="enlaces__item">
-			  <a class="enlaces__enlace1" href="{% url 'nosotros' %}"> NOSOTROS </a><!--el items sobre mi-->
+			  <a class="enlaces__enlace1" href="{% url 'nosotros' %}"> Nosotros </a><!--el items sobre mi-->
 			</li>
 			<li class="enlaces__item">
-			  <a class="enlaces__enlace1" href="{% url 'noticias:listar' %}"> NOTICIAS </a> <!--items proyectos-->
+			  <a class="enlaces__enlace1" href="{% url 'noticias:listar' %}"> Noticias </a> <!--items proyectos-->
 			</li>
 			{% if user.is_authenticated %}  
 			<strong class="enlaces__enlace1">{{ user.username }}</strong>
 			<li class="enlaces__item">
-				<a class="enlaces__enlace1" href="{% url 'usuarios:logout' %}">LOGOUT</a> <!--CAMBIE LINK PARA LOGOUT/cerrar sesion-->
+				<a class="enlaces__enlace1" href="{% url 'usuarios:logout' %}">Cerrar Sesión</a> <!--CAMBIE LINK PARA LOGOUT/cerrar sesion-->
 			</li >
 			{% else %}
 			<li class="enlaces__item">
-				<a class="enlaces__enlace1" href="{% url 'login' %}">LOGIN</a>
+				<a class="enlaces__enlace1" href="{% url 'login' %}">Iniciar Sesión</a>
 			</li>
 			<li class="enlaces__item">
-				<a class="enlaces__enlace1" href="{% url 'usuarios:registro' %}">REGISTER</a>
+				<a class="enlaces__enlace1" href="{% url 'usuarios:registro' %}">Registrarse</a>
 			</li>
 			
 			{% endif %}
@@ -76,10 +76,10 @@
 	</div>
 	
 
-	<h2>PIE DE PAGINA</h2> <!--poner los enlaces correspondientes-->
+	<!--poner los enlaces correspondientes-->
 	<footer class="pie_de_pagina" role="contentinfo"> <!--para agregar informacion importante a nuestro sitio web-->
 		<div class="pie_de_pagina__columna"> <!--1° columna de redes sociales-->
-		<h4 class="pie_de_pagina__titulo_columna">Mi Syte | Enlaces</h4> <!--un titulo-->
+		<h4 class="pie_de_pagina__titulo_columna">Blog IA | Enlaces</h4> <!--un titulo-->
 		<ul class="enlaces enlaces_redes"> <!--una lista desordenada "UL" o "ul"-->
 			<li class="enlaces__item"> <!--GITHUB-->
 			<a
@@ -129,7 +129,7 @@
 				class="enlaces__enlace enlaces__enlace_footer"
 				href="mailto:mayranoemiperez2021@gmail.com?subject=Consulta%20desde%20la%20plataforma%20web"
 				target="_blank"
-				>Mail: SYTEWEB@gmail.com 
+				>Mail: blog-ia@gmail.com 
 			</a> <!--cambie nombre syteweb-->
 			</li>
 		</li>
