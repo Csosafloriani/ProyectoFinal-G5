@@ -63,53 +63,55 @@
 			<h3>COMENTARIOS</h3>
 			<br>
 		{% for com in comentarios %}
-			<ul class="enlaces enlaces_vertical">
-					<div class="seccion_descripcion__parrafo" >
-						<strong class="field">USUARIO:{{com.usuario}}</strong><br>
-						<strong class="">FECHA:{{com.fecha}}</strong><br>
-						<p class="seccion_descripcion__parrafo">{{com.texto}}</p>
+			{% if not com.parent %}
+				<ul class="enlaces enlaces_vertical">
+						<div class="seccion_descripcion__parrafo" >
+							<strong class="field">USUARIO:{{com.usuario}}</strong><br>
+							<strong class="">FECHA:{{com.fecha}}</strong><br>
+							<p class="seccion_descripcion__parrafo">{{com.texto}}</p>
 
-						<!--Mostrar boton para eliminar el comentario solo si es autor o admin-->
-						{% if request.user == com.usuario or request.user.is_staff %}
-							<form method="POST" action="{% url 'comentarios:eliminar' com.pk %}">
+							<!--Mostrar boton para eliminar el comentario solo si es autor o admin-->
+							{% if request.user == com.usuario or request.user.is_staff %}
+								<form method="POST" action="{% url 'comentarios:eliminar' com.pk %}">
+									{% csrf_token %}
+									<button class="boton_oscuro" type="submit">Eliminar comentario</button>
+								</form>
+							{% endif %}
+				
+							<!--Responder comentario solo si está registrado-->
+							{% if request.user.is_authenticated %}
+								<button class="boton_oscuro" type="button" onclick="document.getElementById('respuesta-{{com.pk}}').style.display='block';">Responder</button>
+										<br>
+								<div class="enlaces__item" id="respuesta-{{com.pk}}" style="display:none;"> <!--mofifique este estilo-->
+									<form class="" method="POST" action="{% url 'comentarios:responder' noticia.id com.pk %}">
+										{% csrf_token %}
+										<p>{{ form.texto }}</p>
+										<input class="boton_oscuro" type="submit" value="Responder">
+									</form>
+								</div>
+							{% endif %}
+						</div>
+
+				<!--Mostrar respuestas-->
+				{% for resp in com.respuestas.all %}
+					<li class="seccion_descripcion__parrafo" style="margin-left: 40px;">
+
+						<strong class="">RESPUESTA:{{resp.usuario}}</strong><br>
+						<strong>FECHA:{{resp.fecha}}</strong><br>
+						<p class="seccion_descripcion__parrafo">{{resp.texto}}</p>
+
+						<!--Eliminar respuesta si es autor o admin-->
+						{% if user == resp.usuario or request.user.is_staff %}
+							<form  method="POST" action="{% url 'comentarios:eliminar' resp.pk %}">
 								{% csrf_token %}
-								<button class="boton_oscuro" type="submit">Eliminar comentario</button>
+								<button class="boton_oscuro" type="submit">Eliminar respuesta</button>
 							</form>
 						{% endif %}
-			
-						<!--Responder comentario solo si está registrado-->
-						{% if request.user.is_authenticated %}
-							<button class="boton_oscuro" type="button" onclick="document.getElementById('respuesta-{{com.pk}}').style.display='block';">Responder</button>
-									<br>
-							<div class="enlaces__item" id="respuesta-{{com.pk}}" style="display:none;"> <!--mofifique este estilo-->
-								<form class="" method="POST" action="{% url 'comentarios:responder' noticia.id com.pk %}">
-									{% csrf_token %}
-									<p>{{ form.texto }}</p>
-									<input class="boton_oscuro" type="submit" value="Responder">
-								</form>
-							</div>
-						{% endif %}
-					</div>
-
-			<!--Mostrar respuestas-->
-			{% for resp in com.respuestas.all %}
-				<li class="seccion_descripcion__parrafo" style="margin-left: 40px;">
-
-					<strong class="">RESPUESTA:{{resp.usuario}}</strong><br>
-					<strong>FECHA:{{resp.fecha}}</strong><br>
-					<p class="seccion_descripcion__parrafo">{{resp.texto}}</p>
-
-					<!--Eliminar respuesta si es autor o admin-->
-					{% if user == resp.usuario or request.user.is_staff %}
-						<form  method="POST" action="{% url 'comentarios:eliminar' resp.pk %}">
-							{% csrf_token %}
-							<button class="boton_oscuro" type="submit">Eliminar respuesta</button>
-						</form>
-					{% endif %}
-				</li>
-			{% endfor %}
-			</ul>
-			<br>
+					</li>
+				{% endfor %}
+				</ul>
+				<br>
+			{% endif %}
 		{% endfor %}
 			<div class="seccion_descripcion"> <!--boton volver-->
 				<a class="boton" href="{% url 'noticias:listar' %}">VOLVER</a>
