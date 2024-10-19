@@ -81,10 +81,10 @@
 						{% if request.user.is_authenticated %}
 							<button class="boton_oscuro" type="button" onclick="document.getElementById('respuesta-{{com.pk}}').style.display='block';">Responder</button>
 									<br>
-							<div class="enlaces__item" id="respuesta-{{com.pk}}" style="display:none;">
+							<div class="enlaces__item" id="respuesta-{{com.pk}}" style="display:none;"> <!--mofifique este estilo-->
 								<form class="" method="POST" action="{% url 'comentarios:responder' noticia.id com.pk %}">
 									{% csrf_token %}
-									{{ form.as_p}}
+									<p>{{ form.texto }}</p>
 									<input class="boton_oscuro" type="submit" value="Responder">
 								</form>
 							</div>
