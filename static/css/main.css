@@ -48,6 +48,9 @@
 
     
   } 
+  textarea{
+    height: 50px; /*el textarea, aparece en 50 px*/
+  }
 
 
   /* encabezado para inicio de pagina*/
