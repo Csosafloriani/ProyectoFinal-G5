@@ -137,6 +137,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(os.path.dirname(BASE_DIR),'static'),)
 
+# Ruta donde se recopilarán los archivos estáticos del panel de Django
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),'staticfiles')
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'media')
 
